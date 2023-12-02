@@ -14,9 +14,8 @@ data:
       scrape_timeout: 10s
       evaluation_interval: 60s
 
-    # rule_files:
-    #   - "first_rules.yml"
-    #   - "second_rules.yml"
+    rule_files:
+      - "rules_pagetron.yaml"
 
     scrape_configs:
       # self monitoring
@@ -50,3 +49,31 @@ data:
             target_label: instance
           - target_label: __address__
             replacement: blackbox:9115
+
+  rules_pagetron.yaml: |
+    groups:
+      - name: pagetron_minute
+        interval: 60s
+        rules:
+          - record: pagetron:availability:1m
+            expr: |-
+                sum(
+                  probe_success == 1
+                  and probe_http_status_code >= 200
+                  and probe_http_status_code < 300
+                  and probe_duration_seconds < 2
+                ) by (instance)
+
+      - name: pagetron_hour
+        interval: 1h
+        rules:
+          - record: pagetron:availability:1h
+            expr: |-
+                sum_over_time(sum by (instance) (pagetron:availability:1m)[60m:1m]) / 60
+
+      - name: pagetron_day
+        interval: 24h
+        rules:
+          - record: pagetron:availability:1d
+            expr: |-
+                sum_over_time(sum by (instance) (pagetron:availability:1h)[24h:1h]) / 24
