@@ -3,7 +3,7 @@
 
 	export let name = "changeme";
 	export let thresholds = [0.990, 0.950]
-	export let uptime = 0.58;
+	export let uptime = Math.random() * 1.00;
 
 	let uptimes = [];
 	let uptimeStateClasses = "";
@@ -33,7 +33,7 @@
 
 <div class="box">
 	<div class="header columns">
-		<div class="column is-1">
+		<div class="column is-4">
 			<p class="is-size-5 has-text-weight-bold">{name}</p>
 		</div>
 		<div class="column"></div>

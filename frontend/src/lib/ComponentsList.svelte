@@ -4,6 +4,10 @@
 	let components = [
 		"foo",
 		"bar",
+		"baz",
+		"another-foo",
+		"another-bar",
+		"another-baz",
 	];
 </script>
 
