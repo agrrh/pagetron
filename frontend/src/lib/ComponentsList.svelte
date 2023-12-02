@@ -1,13 +1,16 @@
 <script>
 	import Component from '$lib/Component.svelte';
 
-	let resources = [1, 2];
+	let components = [
+		"foo",
+		"bar",
+	];
 </script>
 
 <section>
 	<div class="container">
-		{#each resources as resource}
-			<Component />
+		{#each components as component}
+			<Component name="{component}" />
 		{/each}
 	</div>
 </section>

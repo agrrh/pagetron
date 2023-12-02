@@ -1,7 +1,22 @@
 <script>
 	import Tick from '$lib/Tick.svelte';
 
+	export let name = "changeme";
+	export let thresholds = [0.990, 0.950]
+	export let uptime = 0.58;
+
 	let uptimes = [];
+	let uptimeStateClasses = "";
+
+	if (uptime > thresholds[0]) {
+		uptimeStateClasses = "has-text-success";
+	} else if (uptime > thresholds[1]) {
+		uptimeStateClasses = "has-text-warning-dark";
+	} else {
+		uptimeStateClasses = "has-text-danger-dark";
+	}
+
+	let uptimeHuman = (uptime * 100.0).toFixed(2);
 
 	// Generate randoms for now
 	uptimes = Array.from(
@@ -19,11 +34,11 @@
 <div class="box">
 	<div class="header columns">
 		<div class="column is-1">
-			<p class="is-size-5">Component</p>
+			<p class="is-size-5 has-text-weight-bold">{name}</p>
 		</div>
 		<div class="column"></div>
 		<div class="column is-1 has-text-right">
-			<p class="is-text-bold is-family-code has-text-success">99.999%</p>
+			<p class="is-text-bold is-family-code {uptimeStateClasses}">{uptimeHuman}%</p>
 		</div>
 	</div>
 
