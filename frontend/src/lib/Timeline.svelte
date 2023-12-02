@@ -1,7 +1,19 @@
 <script>
-	let data = [];
+	import Tick from '$lib/Tick.svelte';
 
-	data = Array.from(Array(90).keys());
+	let uptimes = [];
+
+	// Generate randoms for now
+	uptimes = Array.from(
+		{length: 90},
+		() => Math.round(
+			(
+				1.00
+				-
+				(Math.random() * 0.02)
+			) * 1000.0
+		) / 1000.0
+	);
 </script>
 
 <div class="box">
@@ -16,12 +28,12 @@
 	</div>
 
 	<div class="body">
-		{#each data as cell}
-			<div class="cell"></div>
+		{#each uptimes as uptime, i}
+			<Tick uptime={uptime} id="{i+1}.01" />
 		{/each}
 	</div>
 
-	<div class="info columns has-text-grey">
+	<div class="info columns has-text-grey is-size-7">
 		<div class="column is-1">90 days ago</div>
 		<div class="column"></div>
 		<div class="column is-1 has-text-right">Today</div>
@@ -54,18 +66,5 @@
 
 	div.body {
 		display: flex;
-	}
-
-	div.info {
-		font-family: 'Quicksand', sans-serif;
-		font-weight: lighter;
-	}
-
-	div.cell {
-		display: block;
-		margin-right: 1px;
-		background-color: #48c78e;
-		width: 1.1%;
-		height: 24px;
 	}
 </style>
