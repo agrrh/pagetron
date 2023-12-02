@@ -50,28 +50,11 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-<!-- TODO -->
+- [x] [Prototype Stage](https://github.com/agrrh/pagetron/milestone/1)
+- [ ] [Core Features](https://github.com/agrrh/pagetron/milestone/2)
+- [ ] [Nice To Have](https://github.com/agrrh/pagetron/milestone/3)
 
-- [x] Prototype Stage
-
-  - [x] Prometheus basic setup
-  - [x] UI prototype
-
-- [ ] Core Features
-
-  - [x] Prometheus downsampling
-  - [ ] API layer?
-  - [ ] Dynamic UI
-  - [ ] Configuration trough Helm chart
-  - [ ] Static page generator to S3
-  - [ ] Sample Addon: Incidents collector
-
-- [ ] Nice To Have
-
-  - [ ] Sample script to import metrics from CSV or JSON
-  - [ ] Integrate with prometheus-operator
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/agrrh/pagetron/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
