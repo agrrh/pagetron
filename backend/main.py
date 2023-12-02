@@ -15,7 +15,7 @@ def read_root():
     return [
         "/overview/",
         "/components/",
-        "/components/{name}/",
+        "/components/?name={name}",
     ]
 
 
