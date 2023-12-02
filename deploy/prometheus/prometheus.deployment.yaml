@@ -26,6 +26,13 @@ spec:
         - name: prometheus
           image: prom/prometheus:v2.48.0
           imagePullPolicy: IfNotPresent
+          command: ["/bin/prometheus"]
+          args:
+            - "--config.file=/etc/prometheus/prometheus.yaml"
+            - "--storage.tsdb.path=/prometheus"
+            - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+            - "--web.console.templates=/usr/share/prometheus/consoles"
+            - "--web.enable-admin-api"  # allow external housekeeping
           ports:
             - name: http
               protocol: TCP
