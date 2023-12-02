@@ -1,6 +1,6 @@
 <div class="container status">
 	<div class="notification is-success has-text-centered">
-		<p class="title">Online</p>
+		<p class="title">All Systems Online</p>
 		<p class="subtitle">Last updated on Dec 01 at 11:31pm UTC</p>
 	</div>
 </div>
