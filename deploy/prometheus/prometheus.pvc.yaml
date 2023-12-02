@@ -1,0 +1,16 @@
+---
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+
+metadata:
+  name: prometheus-data
+  namespace: pagetron
+
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  # storageClassName: local

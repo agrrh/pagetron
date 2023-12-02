@@ -52,18 +52,18 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <!-- TODO -->
 
-- [ ] Prototype Stage
+- [x] Prototype Stage
 
-  - [ ] Prometheus basic setup
-  - [ ] UI prototype
+  - [x] Prometheus basic setup
+  - [x] UI prototype
 
 - [ ] Core Features
 
-  - [ ] Prometheus downsampling
-  - [ ] Static page generator to S3
-  - [ ] API layer
+  - [x] Prometheus downsampling
+  - [ ] API layer?
   - [ ] Dynamic UI
   - [ ] Configuration trough Helm chart
+  - [ ] Static page generator to S3
   - [ ] Sample Addon: Incidents collector
 
 - [ ] Nice To Have
