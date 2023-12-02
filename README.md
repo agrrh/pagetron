@@ -22,6 +22,7 @@
 
 - [Svelte](https://svelte.dev)
 - [Prometheus](https://prometheus.io)
+- [FastAPI](https://fastapi.tiangolo.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
