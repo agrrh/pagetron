@@ -1,5 +1,5 @@
 <script>
-	import Timeline from '$lib/Timeline.svelte';
+	import Component from '$lib/Component.svelte';
 
 	let resources = [1, 2];
 </script>
@@ -7,7 +7,7 @@
 <section>
 	<div class="container">
 		{#each resources as resource}
-			<Timeline />
+			<Component />
 		{/each}
 	</div>
 </section>
