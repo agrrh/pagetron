@@ -1,3 +1,5 @@
+import statistics
+
 from prometheus_api_client import PrometheusConnect
 from prometheus_api_client.utils import parse_datetime
 
@@ -130,12 +132,15 @@ class DBInterface(object):
         data = [
             (
                 timestamp_to_human_token(v[0], preset.precision),
-                round(float(v[1]), 3),
+                round(float(v[1]), 5),
             )
             for v in metric_data[0].get("values", [])
         ]
 
+        uptime = round(statistics.mean([v[1] for v in data]), 5)
+
         return {
             "name": name,
-            "data": data,
+            "uptime": uptime,
+            "observations": data,
         }
