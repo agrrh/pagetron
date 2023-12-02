@@ -61,8 +61,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
   - [ ] Prometheus downsampling
   - [ ] Static page generator to S3
-  - [ ] API layer for further extension
-  - [ ] Helm chart
+  - [ ] API layer
+  - [ ] Dynamic UI
+  - [ ] Configuration trough Helm chart
   - [ ] Sample Addon: Incidents collector
 
 - [ ] Nice To Have
