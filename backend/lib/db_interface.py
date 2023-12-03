@@ -30,6 +30,8 @@ class DBInterface(object):
         statuses_list = []
         components_issues_list = []
 
+        timestamp = raw_data[0].get("value", [0, "0.0"])[0]
+
         for m in raw_data:
             name = m.get("metric", {}).get("instance")
             status = m.get("value", [0, "0"])[1] == "1"
@@ -43,6 +45,7 @@ class DBInterface(object):
             "components_count": len(statuses_list),
             "issues_count": len(components_issues_list),
             "components_issues": components_issues_list,
+            "datetime_human": timestamp_to_human_token(timestamp, "datetime"),
         }
 
     def list_components(self) -> List[str]:
