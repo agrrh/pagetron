@@ -112,7 +112,7 @@ class DBInterface(object):
         end_time = parse_datetime("now")
 
         metric_data = self.client.custom_query_range(
-            query=f'sum(last_over_time({preset.metric}{{instance="{name}"}}[{preset.step}]) or on() vector(0))',
+            query=f'sum(avg_over_time({preset.metric}{{instance="{name}"}}[{preset.step}]) or on() vector(0))',
             start_time=start_time,
             end_time=end_time,
             step=preset.step,
