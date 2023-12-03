@@ -36,12 +36,13 @@ down for {downtimeHuman}"
 <style>
 div.tick {
 	display: block;
-	margin-right: 1px;
+	margin: 0px 1px;
+	padding: 1px;
 	width: 5%;
 	height: 24px;
 }
 
 div.tick:hover {
-	border: 1px solid black;
+  box-shadow: inset 0 0 24px 24px rgba(255, 255, 255, 0.5);
 }
 </style>
