@@ -1,7 +1,32 @@
+<script>
+export let status = false;
+export let componentsCount = 0;
+export let issuesCount = 0;
+export let componentsIssues = [];
+export let datetimeHuman = 'Dec 01 at 00:01';
+
+let statusClass = '';
+let statusText = 'Unknown';
+
+if (status == true) {
+	statusClass = 'is-success';
+	statusText = 'All components online';
+} else {
+	if (issuesCount == componentsCount) {
+		statusClass = 'is-danger';
+		statusText = 'All components down!'
+	} else {
+		statusClass = 'is-warning';
+		statusText = `Facing issues on ${issuesCount} component(s)`
+	}
+}
+
+</script>
+
 <div class="container status">
-	<div class="notification is-success has-text-centered">
-		<p class="title">All Systems Online</p>
-		<p class="subtitle">Last updated on Dec 01 at 11:31pm UTC</p>
+	<div class="notification has-text-centered {statusClass}">
+		<p class="title">{statusText}</p>
+		<p class="subtitle">Last updated on {datetimeHuman}</p>
 	</div>
 </div>
 

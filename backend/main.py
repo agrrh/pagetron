@@ -1,10 +1,26 @@
 import os
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from lib.db_interface import DBInterface
 
+DEFAULT_ORIGINS = [
+    "http://127.0.0.1:5173",
+    "http://localhost:5173",
+]
+
 app = FastAPI()
+
+origins = [_ for _ in os.environ.get("APP_CORS_ORIGINS", "").split(",") if _] or DEFAULT_ORIGINS
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
 
 db_addr = os.environ.get("PROMETHEUS_ADDR", "http://127.0.0.1:9090/")
 db = DBInterface(addr=db_addr)
@@ -15,7 +31,7 @@ def read_root():
     return [
         "/overview/",
         "/components/",
-        "/components/{name}/",
+        "/components/?name={name}",
     ]
 
 

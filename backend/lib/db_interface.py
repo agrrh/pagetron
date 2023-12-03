@@ -1,3 +1,5 @@
+import statistics
+
 from prometheus_api_client import PrometheusConnect
 from prometheus_api_client.utils import parse_datetime
 
@@ -28,6 +30,8 @@ class DBInterface(object):
         statuses_list = []
         components_issues_list = []
 
+        timestamp = raw_data[0].get("value", [0, "0.0"])[0]
+
         for m in raw_data:
             name = m.get("metric", {}).get("instance")
             status = m.get("value", [0, "0"])[1] == "1"
@@ -41,6 +45,7 @@ class DBInterface(object):
             "components_count": len(statuses_list),
             "issues_count": len(components_issues_list),
             "components_issues": components_issues_list,
+            "datetime_human": timestamp_to_human_token(timestamp, "datetime"),
         }
 
     def list_components(self) -> List[str]:
@@ -64,21 +69,21 @@ class DBInterface(object):
             "day": ViewPreset(
                 depth=24,
                 unit="h",
-                step="5m",
+                step="15m",
                 metric="pagetron:availability:1m",
                 precision="time",
             ),
             "week": ViewPreset(
                 depth=7,
                 unit="d",
-                step="1h",
+                step="3h",
                 metric="pagetron:availability:1h",
                 precision="datetime",
             ),
             "month": ViewPreset(
                 depth=30,
                 unit="d",
-                step="6h",
+                step="12h",
                 metric="pagetron:availability:1d",
                 precision="datetime",
             ),
@@ -92,7 +97,7 @@ class DBInterface(object):
             "year": ViewPreset(
                 depth=365,
                 unit="d",
-                step="1d",
+                step="7d",
                 metric="pagetron:availability:1d",
                 precision="date",
             ),
@@ -107,7 +112,7 @@ class DBInterface(object):
         end_time = parse_datetime("now")
 
         metric_data = self.client.custom_query_range(
-            query=f'sum({preset.metric}{{instance="{name}"}} or on() vector(0))',
+            query=f'sum(avg_over_time({preset.metric}{{instance="{name}"}}[{preset.step}]) or on() vector(0))',
             start_time=start_time,
             end_time=end_time,
             step=preset.step,
@@ -130,12 +135,15 @@ class DBInterface(object):
         data = [
             (
                 timestamp_to_human_token(v[0], preset.precision),
-                round(float(v[1]), 3),
+                round(float(v[1]), 5),
             )
             for v in metric_data[0].get("values", [])
         ]
 
+        uptime = round(statistics.mean([v[1] for v in data]), 5)
+
         return {
             "name": name,
-            "data": data,
+            "uptime": uptime,
+            "observations": data,
         }
