@@ -5,26 +5,35 @@
 	import Footer from '$lib/Footer.svelte';
 	import Dummy from '$lib/Dummy.svelte';
 
-	async function overview() {
-		const response = await fetch(`http://127.0.0.1:3000/overview/`);
+	async function fetchData() {
+		let response;
+
+		response = await fetch(`http://127.0.0.1:3000/overview/`);
 		const overview = await response.json();
-		return overview;
+
+		response = await fetch(`http://127.0.0.1:3000/components/`);
+		const components = await response.json();
+
+		return {overview, components};
 	}
 </script>
 
 <Header />
 
-{#await overview()}
+{#await fetchData()}
 	<Dummy />
-{:then overview}
+{:then data}
 	<Overview
-		status={overview.status}
-		componentsCount={overview.components_count}
-		issuesCount={overview.issues_count}
-		componentsIssues={overview.components_issues}
-		datetimeHuman={overview.datetime_human}
+		status={data.overview.status}
+		componentsCount={data.overview.components_count}
+		issuesCount={data.overview.issues_count}
+		componentsIssues={data.overview.components_issues}
+		datetimeHuman={data.overview.datetime_human}
 	/>
-	<ComponentsList />
+	<ComponentsList
+		components={data.components}
+		view="week"
+	/>
 {/await}
 
 <Footer />

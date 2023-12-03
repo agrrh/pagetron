@@ -10,11 +10,11 @@ let statusText = 'Unknown';
 
 if (status == true) {
 	statusClass = 'is-success';
-	statusText = 'All Systems Online';
+	statusText = 'All components online';
 } else {
 	if (issuesCount == componentsCount) {
 		statusClass = 'is-danger';
-		statusText = 'All Systems Down!'
+		statusText = 'All components down!'
 	} else {
 		statusClass = 'is-warning';
 		statusText = `Facing issues on ${issuesCount} component(s)`

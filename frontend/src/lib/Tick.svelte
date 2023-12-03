@@ -3,7 +3,7 @@ import humanizeDuration from 'humanize-duration'
 
 export let id = "01.01";
 export let uptime = 0.0;
-export let capacitySeconds = 86400; // Seconds in each day
+export let capacity = 60;
 export let thresholds = [0.990, 0.950]
 
 let tickStateClasses = "";
@@ -16,8 +16,9 @@ if (uptime > thresholds[0]) {
 	tickStateClasses = "has-background-danger";
 }
 
-let downtime = Math.round((1.0 - uptime) * capacitySeconds);
-let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 1, units: ["h", "m", "s"] });
+let downtime = Math.round((1.0 - uptime) * capacity) * 1000;
+console.log(downtime);
+let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 1, units: ["h", "m"] });
 </script>
 
 <div
@@ -36,7 +37,7 @@ down for {downtimeHuman}"
 div.tick {
 	display: block;
 	margin-right: 1px;
-	width: 1.1%;
+	width: 5%;
 	height: 24px;
 }
 

@@ -1,12 +1,23 @@
 <script>
 	import Tick from '$lib/Tick.svelte';
 
-	export let name = "changeme";
-	export let thresholds = [0.990, 0.950]
-	export let uptime = Math.random() * 1.00;
+	export let dummy = false;
+	export let view = "quarter";
 
-	let uptimes = [];
+	export let name = "changeme";
+	export let uptime = 0.0;
+	export let observations = [];
+	export let tickCapacitySeconds = 60;
+
+	let thresholds = [0.990, 0.950];
 	let uptimeStateClasses = "";
+
+	if (dummy) {
+		observations = Array.from(
+			{length: 90},
+			() => 1.0
+		);
+	}
 
 	if (uptime > thresholds[0]) {
 		uptimeStateClasses = "has-text-success";
@@ -16,19 +27,31 @@
 		uptimeStateClasses = "has-text-danger-dark";
 	}
 
-	let uptimeHuman = (uptime * 100.0).toFixed(2);
+	let timelineStart = "";
+	switch (view) {
+		case "day":
+			timelineStart = "24 hours";
+			tickCapacitySeconds = 60 * 5;
+			break;
+		case "week":
+			timelineStart = "7 days";
+			tickCapacitySeconds = 60 * 60 * 1;
+			break;
+		case "month":
+			timelineStart = "30 days";
+			tickCapacitySeconds = 60 * 60 * 6;
+			break;
+		case "quarter":
+			timelineStart = "90 days";
+			tickCapacitySeconds = 60 * 60 * 24;
+			break;
+		case "year":
+			timelineStart = "1 year";
+			tickCapacitySeconds = 60 * 60 * 24;
+			break;
+	}
 
-	// Generate randoms for now
-	uptimes = Array.from(
-		{length: 90},
-		() => Math.round(
-			(
-				1.00
-				-
-				(Math.random() * 0.02)
-			) * 1000.0
-		) / 1000.0
-	);
+	let uptimeHuman = (uptime * 100.0).toFixed(2);
 </script>
 
 <div class="box">
@@ -43,15 +66,19 @@
 	</div>
 
 	<div class="body">
-		{#each uptimes as uptime, i}
-			<Tick uptime={uptime} id="{i+1}.01" />
+		{#each observations as tick}
+			<Tick
+				id={tick[0]}
+				uptime={tick[1]}
+				capacity={tickCapacitySeconds}
+			/>
 		{/each}
 	</div>
 
 	<div class="info columns has-text-grey is-size-7">
-		<div class="column is-1">90 days ago</div>
+		<div class="column is-1">{timelineStart} ago</div>
 		<div class="column"></div>
-		<div class="column is-1 has-text-right">Today</div>
+		<div class="column is-1 has-text-right">Now</div>
 	</div>
 </div>
 
