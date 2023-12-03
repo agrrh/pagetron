@@ -69,21 +69,21 @@ class DBInterface(object):
             "day": ViewPreset(
                 depth=24,
                 unit="h",
-                step="5m",
+                step="15m",
                 metric="pagetron:availability:1m",
                 precision="time",
             ),
             "week": ViewPreset(
                 depth=7,
                 unit="d",
-                step="1h",
+                step="3h",
                 metric="pagetron:availability:1h",
                 precision="datetime",
             ),
             "month": ViewPreset(
                 depth=30,
                 unit="d",
-                step="6h",
+                step="12h",
                 metric="pagetron:availability:1d",
                 precision="datetime",
             ),
@@ -97,7 +97,7 @@ class DBInterface(object):
             "year": ViewPreset(
                 depth=365,
                 unit="d",
-                step="1d",
+                step="7d",
                 metric="pagetron:availability:1d",
                 precision="date",
             ),
