@@ -5,7 +5,7 @@
 	export let view = "quarter";
 
 	export let name = "changeme";
-	export let uptime = 0.0;
+	export let uptime = 1.0;
 	export let observations = [];
 	export let tickCapacitySeconds = 60;
 
@@ -15,7 +15,7 @@
 	if (dummy) {
 		observations = Array.from(
 			{length: 90},
-			() => 1.0
+			() => -1.0
 		);
 	}
 
