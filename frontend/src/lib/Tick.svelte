@@ -8,6 +8,9 @@ export let thresholds = [0.990, 0.950]
 
 let tickStateClasses = "";
 
+let downtime = 0.0;
+let downtimeHumanText = "";
+
 if (uptime == -1.0) {
 	tickStateClasses = "has-background-grey";
 } else if (uptime > thresholds[0]) {
@@ -18,9 +21,12 @@ if (uptime == -1.0) {
 	tickStateClasses = "has-background-danger";
 }
 
-let downtime = Math.round((1.0 - uptime) * capacity) * 1000;
-console.log(downtime);
-let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 1, units: ["h", "m", "s"] });
+downtime = Math.round((1.0 - uptime) * capacity) * 1000;
+
+if (downtime > 0) {
+	let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 1, units: ["h", "m", "s"] });
+	downtimeHumanText = "\n" + "down for " + downtimeHuman;
+}
 </script>
 
 <div
@@ -30,8 +36,7 @@ let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 1, units: ["h
 		has-tooltip-text-centered
 		{tickStateClasses}
 	"
-	data-tooltip="{id}
-down for {downtimeHuman}"
+	data-tooltip="{id} {downtimeHumanText}"
 >
 </div>
 
