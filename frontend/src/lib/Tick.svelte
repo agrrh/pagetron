@@ -21,7 +21,11 @@
 		tickStateClasses = 'has-background-danger';
 	}
 
-	downtime = Math.round((1.0 - uptime) * capacity) * 1000;
+	if (uptime == -1.0) {
+		downtime = 1.0 * capacity * 1000; // no data
+	} else {
+		downtime = Math.round((1.0 - uptime) * capacity) * 1000;
+	}
 
 	if (downtime > 0) {
 		let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 1, units: ['h', 'm', 's'] });

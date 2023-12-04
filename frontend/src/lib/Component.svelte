@@ -18,6 +18,23 @@
 		observations = Array.from({ length: 90 }, () => -1.0);
 	}
 
+	function urlSplit(url) {
+		if (url == null || url.length < 5) {
+			return ['file://', '/dev/null'];
+		}
+
+		let urlObj = new URL(url);
+
+		let proto = urlObj.protocol + '//';
+		let hostAndPath = urlObj.hostname;
+
+		if (urlObj.pathname.length > 1) {
+			hostAndPath += urlObj.pathname;
+		}
+
+		return [proto, hostAndPath];
+	}
+
 	if (uptime > thresholds[0]) {
 		uptimeStateClasses = 'has-text-success';
 	} else if (uptime > thresholds[1]) {
@@ -59,13 +76,22 @@
 </script>
 
 <div class="box">
-	<div class="header columns">
+	<div class="header columns is-mobile">
 		<div class="column is-3">
-			<p class="is-size-5 has-text-weight-bold">{name}</p>
+			<p class="is-size-5 has-text-weight-bold">
+				<a href={name} target="_blank">
+					<span class="has-text-grey">{urlSplit(name)[0]}</span><!--
+					-->{urlSplit(
+						name
+					)[1]}<!--
+		 --></a
+				>
+			</p>
 		</div>
-		<div class="column"></div>
-		<div class="column is-3 has-text-right">
-			<p class="is-text-bold is-family-code {uptimeStateClasses}">{uptimeHuman}%</p>
+		<div class="column has-text-right">
+			<p class="is-text-bold is-family-code {uptimeStateClasses}">
+				{uptimeHuman}%
+			</p>
 		</div>
 	</div>
 
@@ -75,7 +101,7 @@
 		{/each}
 	</div>
 
-	<div class="info columns has-text-grey is-size-7">
+	<div class="info columns is-mobile has-text-grey is-size-7">
 		<div class="column is-3">{timelineStart} ago</div>
 		<div class="column has-text-centered">per {tickCapacityHuman}</div>
 		<div class="column is-3 has-text-right">Now</div>

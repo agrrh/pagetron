@@ -10,7 +10,7 @@ metadata:
 data:
   prometheus.yaml: |
     global:
-      scrape_interval: 60s
+      scrape_interval: 15s
       scrape_timeout: 10s
       evaluation_interval: 60s
 
@@ -53,7 +53,7 @@ data:
   rules_pagetron.yaml: |
     groups:
       - name: pagetron_minute
-        interval: 60s
+        interval: 15s
         rules:
           - record: pagetron:availability:1m
             expr: |-
@@ -65,15 +65,15 @@ data:
                 )
 
       - name: pagetron_hour
-        interval: 1h
+        interval: 60s
         rules:
           - record: pagetron:availability:1h
             expr: |-
-                avg_over_time(pagetron:availability:1m[60m:1m])
+                min_over_time(pagetron:availability:1m[60m:1m])
 
       - name: pagetron_day
-        interval: 24h
+        interval: 30m
         rules:
           - record: pagetron:availability:1d
             expr: |-
-                avg_over_time(pagetron:availability:1h[24h:30m])
+                min_over_time(pagetron:availability:1h[24h:30m])
