@@ -12,19 +12,22 @@
 	let downtimeHumanText = '';
 
 	if (uptime == -1.0) {
+		downtime = 1.0 * capacity * 1000; // no data
+	} else {
+		downtime = Math.round((1.0 - uptime) * capacity) * 1000;
+	}
+
+	if (uptime == -1.0) {
 		tickStateClasses = 'has-background-grey';
 	} else if (uptime > thresholds[0]) {
 		tickStateClasses = 'has-background-success';
+		if (downtime > 0) {
+			tickStateClasses += " " + "has-minor-issue";
+		}
 	} else if (uptime > thresholds[1]) {
 		tickStateClasses = 'has-background-warning';
 	} else {
 		tickStateClasses = 'has-background-danger';
-	}
-
-	if (uptime == -1.0) {
-		downtime = 1.0 * capacity * 1000; // no data
-	} else {
-		downtime = Math.round((1.0 - uptime) * capacity) * 1000;
 	}
 
 	if (downtime > 0) {
@@ -56,5 +59,9 @@
 
 	div.tick:hover {
 		box-shadow: inset 0 0 24px 24px rgba(255, 255, 255, 0.5);
+	}
+
+	div.tick.has-minor-issue {
+		border-top: 2px solid #ffe08a;
 	}
 </style>
