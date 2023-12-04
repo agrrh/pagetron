@@ -2,7 +2,7 @@
 	import Component from '$lib/Component.svelte';
 
 	export let components = [];
-	export let view = "quarter";
+	export let view = 'quarter';
 
 	async function fetchData(name, view) {
 		let response;
@@ -18,14 +18,9 @@
 	<div class="container">
 		{#each components as componentName}
 			{#await fetchData(componentName, view)}
-				<Component name="..." dummy=true />
+				<Component name="..." dummy="true" />
 			{:then data}
-				<Component
-					name={data.name}
-					observations={data.observations}
-					uptime={data.uptime}
-					view={view}
-				/>
+				<Component name={data.name} observations={data.observations} uptime={data.uptime} {view} />
 			{/await}
 		{/each}
 	</div>

@@ -4,32 +4,29 @@
 	import Tick from '$lib/Tick.svelte';
 
 	export let dummy = false;
-	export let view = "quarter";
+	export let view = 'quarter';
 
-	export let name = "changeme";
+	export let name = 'changeme';
 	export let uptime = 1.0;
 	export let observations = [];
 	export let tickCapacitySeconds = 60;
 
-	let thresholds = [0.990, 0.950];
-	let uptimeStateClasses = "";
+	let thresholds = [0.99, 0.95];
+	let uptimeStateClasses = '';
 
 	if (dummy) {
-		observations = Array.from(
-			{length: 90},
-			() => -1.0
-		);
+		observations = Array.from({ length: 90 }, () => -1.0);
 	}
 
 	if (uptime > thresholds[0]) {
-		uptimeStateClasses = "has-text-success";
+		uptimeStateClasses = 'has-text-success';
 	} else if (uptime > thresholds[1]) {
-		uptimeStateClasses = "has-text-warning-dark";
+		uptimeStateClasses = 'has-text-warning-dark';
 	} else {
-		uptimeStateClasses = "has-text-danger-dark";
+		uptimeStateClasses = 'has-text-danger-dark';
 	}
 
-	let timelineStart = "";
+	let timelineStart = '';
 	switch (view) {
 		case 'day':
 			timelineStart = '24 hours';
@@ -74,11 +71,7 @@
 
 	<div class="body">
 		{#each observations as tick}
-			<Tick
-				id={tick[0]}
-				uptime={tick[1]}
-				capacity={tickCapacitySeconds}
-			/>
+			<Tick id={tick[0]} uptime={tick[1]} capacity={tickCapacitySeconds} />
 		{/each}
 	</div>
 
