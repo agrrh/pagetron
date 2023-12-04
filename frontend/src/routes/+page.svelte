@@ -1,4 +1,6 @@
 <script>
+	import { viewStore } from '$lib/stores.js';
+
 	import Header from '$lib/Header.svelte';
 	import Overview from '$lib/Overview.svelte';
 	import ComponentsList from '$lib/ComponentsList.svelte';
@@ -14,8 +16,14 @@
 		response = await fetch(`http://127.0.0.1:3000/components/`);
 		const components = await response.json();
 
-		return {overview, components};
+		return { overview, components };
 	}
+
+	let view = '';
+
+	viewStore.subscribe((value) => (view = value));
+
+	$: view;
 </script>
 
 <Header />
@@ -30,10 +38,7 @@
 		componentsIssues={data.overview.components_issues}
 		datetimeHuman={data.overview.datetime_human}
 	/>
-	<ComponentsList
-		components={data.components}
-		view="week"
-	/>
+	<ComponentsList components={data.components} {view} />
 {:catch error}
 	<Dummy error={error.message} />
 {/await}
