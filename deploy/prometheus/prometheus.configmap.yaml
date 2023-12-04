@@ -69,11 +69,11 @@ data:
         rules:
           - record: pagetron:availability:1h
             expr: |-
-                sum_over_time(sum by (instance) (pagetron:availability:1m)[60m:1m]) / 60
+                avg_over_time(pagetron:availability:1m[60m:1m])
 
       - name: pagetron_day
         interval: 24h
         rules:
           - record: pagetron:availability:1d
             expr: |-
-                sum_over_time(sum by (instance) (pagetron:availability:1h)[24h:1h]) / 24
+                avg_over_time(pagetron:availability:1h[24h:30m])
