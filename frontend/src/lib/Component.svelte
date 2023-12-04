@@ -1,4 +1,6 @@
 <script>
+	import humanizeDuration from 'humanize-duration';
+
 	import Tick from '$lib/Tick.svelte';
 
 	export let dummy = false;
@@ -51,6 +53,11 @@
 			break;
 	}
 
+	let tickCapacityHuman = humanizeDuration(tickCapacitySeconds * 1000, {
+		maxDecimalPoints: 1,
+		units: ['w', 'd', 'h', 'm', 's']
+	});
+
 	let uptimeHuman = (uptime * 100.0).toFixed(2);
 </script>
 
@@ -76,9 +83,9 @@
 	</div>
 
 	<div class="info columns has-text-grey is-size-7">
-		<div class="column is-1">{timelineStart} ago</div>
-		<div class="column"></div>
-		<div class="column is-1 has-text-right">Now</div>
+		<div class="column is-3">{timelineStart} ago</div>
+		<div class="column has-text-centered">per {tickCapacityHuman}</div>
+		<div class="column is-3 has-text-right">Now</div>
 	</div>
 </div>
 
