@@ -29,25 +29,25 @@
 
 	let timelineStart = "";
 	switch (view) {
-		case "day":
-			timelineStart = "24 hours";
-			tickCapacitySeconds = 60 * 5;
+		case 'day':
+			timelineStart = '24 hours';
+			tickCapacitySeconds = 60 * 15;
 			break;
-		case "week":
-			timelineStart = "7 days";
-			tickCapacitySeconds = 60 * 60 * 1;
+		case 'week':
+			timelineStart = '7 days';
+			tickCapacitySeconds = 60 * 60 * 3;
 			break;
-		case "month":
-			timelineStart = "30 days";
-			tickCapacitySeconds = 60 * 60 * 6;
+		case 'month':
+			timelineStart = '30 days';
+			tickCapacitySeconds = 60 * 60 * 12;
 			break;
-		case "quarter":
-			timelineStart = "90 days";
+		case 'quarter':
+			timelineStart = '90 days';
 			tickCapacitySeconds = 60 * 60 * 24;
 			break;
-		case "year":
-			timelineStart = "1 year";
-			tickCapacitySeconds = 60 * 60 * 24;
+		case 'year':
+			timelineStart = '1 year';
+			tickCapacitySeconds = 60 * 60 * 24 * 7;
 			break;
 	}
 
