@@ -98,18 +98,16 @@ docker run --rm -ti --network host local/pagetron:backend
 
 ### Frontend
 
-Just run frontend container:
+Just run frontend:
 
 ```
-cd frontend
-
-docker build . local/pagetron:frontend
-docker run --rm -ti --network host local/pagetron:frontend
+npm i
+npm run dev
 ```
 
 Then you may visit UI:
 
-http://127.0.0.1:5173/
+http://localhost:5173/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
