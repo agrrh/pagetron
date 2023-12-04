@@ -1,7 +1,4 @@
 <script>
-	import { viewStore } from '$lib/stores.js';
-	import { get } from 'svelte/store';
-
 	function toggleMenu() {
 		var burger = document.querySelector('.navbar-burger');
 		var menu = document.querySelector('#' + burger.dataset.target);
@@ -10,27 +7,6 @@
 			menu.classList.toggle('is-active');
 		});
 	}
-
-	function nextView() {
-		let i = 0;
-		let viewsList = ['day', 'week', 'month', 'quarter', 'year'];
-
-		let currentView = get(viewStore);
-
-		i = viewsList.indexOf(currentView) + 1;
-
-		if (i >= viewsList.length) {
-			i = 0;
-		}
-
-		viewStore.set(viewsList[i]);
-	}
-
-	let view = '';
-
-	viewStore.subscribe((value) => (view = value));
-
-	$: view;
 </script>
 
 <nav class="navbar is-black" role="navigation" aria-label="main navigation">
@@ -60,11 +36,13 @@
 
 			<div class="navbar-end">
 				<div class="navbar-item">
-					<a class="button is-white is-outlined" on:click={nextView}>
-						<span class="fa fa-eye"></span>
-						<span class="">
-							&nbsp; View: {view}
-						</span>
+					<a
+						class="button is-white is-outlined"
+						href="https://github.com/agrrh/pagetron"
+						target="_blank"
+					>
+						<span class="fab fa-github"></span>
+						<span class=""> &nbsp; GitHub </span>
 					</a>
 				</div>
 			</div>
