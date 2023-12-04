@@ -34,6 +34,8 @@
 		components={data.components}
 		view="week"
 	/>
+{:catch error}
+	<Dummy error={error.message} />
 {/await}
 
 <Footer />
