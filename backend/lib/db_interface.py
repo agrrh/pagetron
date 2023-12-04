@@ -17,7 +17,9 @@ class DBInterface(object):
         )
 
     def get_overview(self) -> dict:
-        raw_data = self.client.custom_query(query="group by (instance) (pagetron:availability:1m)")
+        raw_data = self.client.custom_query(
+            query="sum by (instance) (pagetron:availability:1m)"
+        )
 
         # [
         #     {
@@ -49,7 +51,9 @@ class DBInterface(object):
         }
 
     def list_components(self) -> List[str]:
-        raw_data = self.client.custom_query(query="group by (instance) (pagetron:availability:1m)")
+        raw_data = self.client.custom_query(
+            query="group by (instance) (pagetron:availability:1m)"
+        )
 
         # [
         #     {
@@ -112,7 +116,7 @@ class DBInterface(object):
         end_time = parse_datetime("now")
 
         metric_data = self.client.custom_query_range(
-            query=f'sum(avg_over_time({preset.metric}{{instance="{name}"}}[{preset.step}]) or on() vector(0))',
+            query=f'sum(avg_over_time({preset.metric}{{instance="{name}"}}[{preset.step}]) or on() vector(-1))',
             start_time=start_time,
             end_time=end_time,
             step=preset.step,
@@ -140,7 +144,8 @@ class DBInterface(object):
             for v in metric_data[0].get("values", [])
         ]
 
-        uptime = round(statistics.mean([v[1] for v in data]), 5)
+        statistics_values = [v[1] for v in data if v[1] >= 0.0] or [0.0]
+        uptime = round(statistics.mean(statistics_values), 5)
 
         return {
             "name": name,
