@@ -63,11 +63,11 @@
 
 <div class="box">
 	<div class="header columns">
-		<div class="column is-4">
+		<div class="column is-3">
 			<p class="is-size-5 has-text-weight-bold">{name}</p>
 		</div>
 		<div class="column"></div>
-		<div class="column is-1 has-text-right">
+		<div class="column is-3 has-text-right">
 			<p class="is-text-bold is-family-code {uptimeStateClasses}">{uptimeHuman}%</p>
 		</div>
 	</div>
