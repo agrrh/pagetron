@@ -17,7 +17,9 @@ class DBInterface(object):
         )
 
     def get_overview(self) -> dict:
-        raw_data = self.client.custom_query(query="group by (instance) (pagetron:availability:1m)")
+        raw_data = self.client.custom_query(
+            query="sum by (instance) (pagetron:availability:1m)"
+        )
 
         # [
         #     {
@@ -49,7 +51,9 @@ class DBInterface(object):
         }
 
     def list_components(self) -> List[str]:
-        raw_data = self.client.custom_query(query="group by (instance) (pagetron:availability:1m)")
+        raw_data = self.client.custom_query(
+            query="group by (instance) (pagetron:availability:1m)"
+        )
 
         # [
         #     {
