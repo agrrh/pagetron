@@ -2,6 +2,8 @@
 
 name: backend
 
+runs-on: self-hosted
+
 on:
   # schedule:
   #   - cron: "0 10 * * *"
