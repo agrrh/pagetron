@@ -4,18 +4,18 @@ Free status page generator you always wanted!
 
 ## About The Project
 
-1. Uses well-known technologies
+Uses well-known technologies
 
-    - Prometheus under the hood
-    - Kubernetes-ready
+  - Prometheus under the hood
+  - Kubernetes-ready
 
-1. Built with modular architecture in mind
+Built with modular architecture in mind
 
-    - Easy to build e.g. your own UI
+  - Easy to build e.g. your own UI
 
-1. Free to use and extend
+Free to use and extend
 
-    - Released under [WTFPL](https://ru.wikipedia.org/wiki/WTFPL), one of most permissive licenses
+  - Released under [WTFPL](https://ru.wikipedia.org/wiki/WTFPL), one of most permissive licenses
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
