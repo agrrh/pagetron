@@ -27,7 +27,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            agrrh/pagetron:frontend
+            agrrh/pagetron-frontend
           tags: |
             type=schedule
             type=ref,event=branch
