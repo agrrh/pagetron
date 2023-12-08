@@ -92,7 +92,7 @@ Then run backend API:
 ```
 cd backend
 
-docker build . local/pagetron:backend
+docker build . -t local/pagetron:backend
 docker run --rm -ti --network host local/pagetron:backend
 ```
 
