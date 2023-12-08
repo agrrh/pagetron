@@ -4,6 +4,10 @@
 	let curViewName = '';
 	let curViewIconClass = '';
 
+	let isActiveHours = "";
+	let isActiveQuarter = "";
+	let isActiveYear = "";
+
 	const views = [
 		{ name: 'hours', icon: 'fa fa-clock' },
 		{ name: 'quarter', icon: 'fa fa-calendar-days' },
@@ -27,19 +31,18 @@
 
 	viewStore.subscribe((value) => (view = value));
 
-	$: view;
 	$: curViewIconClass = views.filter((x) => x.name == view)[0]['icon'];
+	$: viewText = views.filter((x) => x.name == view)[0]['text'];
+
+	$: isActiveHours = view == 'hours' ? "" : "has-text-grey";
+	$: isActiveQuarter = view == 'quarter' ? "" : "has-text-grey";
+	$: isActiveYear = view == 'year' ? "" : "has-text-grey";
 </script>
 
 <div class="navbar-item">
-	<a id="viewSelector" class="button is-dark has-text-left" on:click={nextView}>
-		<span class={curViewIconClass}></span>
-		<span class="is-capitalized"> &nbsp; {view} </span>
+	<a id="viewSelector" class="button is-dark" on:click={nextView}>
+		<span class="fa fa-clock {isActiveHours}"></span>
+		<span class="fa fa-calendar-days mr-3 ml-3 {isActiveQuarter}"></span>
+		<span class="fa fa-earth-asia {isActiveYear}"></span>
 	</a>
 </div>
-
-<style>
-	a#viewSelector {
-		width: 120px;
-	}
-</style>
