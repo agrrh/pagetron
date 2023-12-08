@@ -1,4 +1,6 @@
 <script>
+	import ViewSelector from '$lib/ViewSelector.svelte';
+
 	function toggleMenu() {
 		var burger = document.querySelector('.navbar-burger');
 		var menu = document.querySelector('#' + burger.dataset.target);
@@ -32,7 +34,9 @@
 		</div>
 
 		<div id="navMenu" class="navbar-menu has-background-black">
-			<div class="navbar-start"></div>
+			<div class="navbar-start">
+				<ViewSelector />
+			</div>
 
 			<div class="navbar-end">
 				<div class="navbar-item">
