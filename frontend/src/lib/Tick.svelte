@@ -6,6 +6,18 @@
 	export let capacity = 60;
 	export let thresholds = [0.99, 0.95];
 
+	let units = [];
+
+	if (capacity <= 60 * 5) {
+		units = ['m', 's'];
+	} else if (capacity <= 60 * 60 * 24) {
+		units = ['d', 'h', 'm'];
+	} else if (capacity <= 60 * 60 * 24 * 7) {
+		units = ['w', 'd', 'h'];
+	} else {
+		units = ['w', 'd'];
+	}
+
 	let tickStateClasses = '';
 
 	let downtime = 0.0;
@@ -30,8 +42,10 @@
 		tickStateClasses = 'has-background-danger';
 	}
 
-	if (downtime > 0) {
-		let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 1, units: ['w', 'd', 'h', 'm', 's'] });
+	if (uptime == -1.0) {
+		downtimeHumanText = '\n' + 'no data';
+	} else if (downtime > 0) {
+		let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 0, units: units });
 		downtimeHumanText = '\n' + 'down for ' + downtimeHuman;
 	}
 </script>
