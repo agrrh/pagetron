@@ -70,26 +70,12 @@ class DBInterface(object):
 
     def get_component(self, name: str, view="quarter") -> dict:
         VIEW_PRESETS = {
-            "day": ViewPreset(
-                depth=24,
+            "hours": ViewPreset(
+                depth=6,
                 unit="h",
-                step="15m",
+                step="5m",
                 metric="pagetron:availability:1m",
                 precision="time",
-            ),
-            "week": ViewPreset(
-                depth=7,
-                unit="d",
-                step="3h",
-                metric="pagetron:availability:1h",
-                precision="datetime",
-            ),
-            "month": ViewPreset(
-                depth=30,
-                unit="d",
-                step="12h",
-                metric="pagetron:availability:1d",
-                precision="datetime",
             ),
             "quarter": ViewPreset(
                 depth=90,

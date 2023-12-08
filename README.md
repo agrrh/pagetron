@@ -21,16 +21,23 @@ Free to use and extend
 
 ### Built With
 
-- Platform
-    - [Docker](https://www.docker.com/)
-    - [Kubernetes](https://kubernetes.io/)
+Platform
 
-- Frontend
-    - [Svelte](https://svelte.dev)
+  - [Docker](https://www.docker.com/)
+  - [Kubernetes](https://kubernetes.io/)
 
-- Backend
-    - [FastAPI](https://fastapi.tiangolo.com/)
-    - [Prometheus](https://prometheus.io)
+Frontend
+
+
+  - [Svelte](https://svelte.dev)
+
+Backend
+
+  - [FastAPI](https://fastapi.tiangolo.com/)
+
+Storage
+
+  - [Prometheus](https://prometheus.io)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -92,7 +99,7 @@ Then run backend API:
 ```
 cd backend
 
-docker build . local/pagetron:backend
+docker build . -t local/pagetron:backend
 docker run --rm -ti --network host local/pagetron:backend
 ```
 

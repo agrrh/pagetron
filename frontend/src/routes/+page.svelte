@@ -3,7 +3,6 @@
 
 	import Header from '$lib/Header.svelte';
 	import Overview from '$lib/Overview.svelte';
-	import ViewSelector from '$lib/ViewSelector.svelte';
 	import ComponentsList from '$lib/ComponentsList.svelte';
 	import Footer from '$lib/Footer.svelte';
 	import Dummy from '$lib/Dummy.svelte';
@@ -39,7 +38,6 @@
 		componentsIssues={data.overview.components_issues}
 		datetimeHuman={data.overview.datetime_human}
 	/>
-	<ViewSelector {view} />
 	<ComponentsList components={data.components} {view} />
 {:catch error}
 	<Dummy error={error.message} />

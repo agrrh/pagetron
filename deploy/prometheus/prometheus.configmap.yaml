@@ -69,11 +69,11 @@ data:
         rules:
           - record: pagetron:availability:1h
             expr: |-
-                min_over_time(pagetron:availability:1m[60m:1m])
+                avg_over_time(pagetron:availability:1m[60m:1m])
 
       - name: pagetron_day
         interval: 30m
         rules:
           - record: pagetron:availability:1d
             expr: |-
-                min_over_time(pagetron:availability:1h[24h:30m])
+                avg_over_time(pagetron:availability:1h[24h:30m])

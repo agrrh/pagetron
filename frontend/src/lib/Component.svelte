@@ -45,24 +45,16 @@
 
 	let timelineStart = '';
 	switch (view) {
-		case 'day':
-			timelineStart = '24 hours';
-			tickCapacitySeconds = 60 * 15;
-			break;
-		case 'week':
-			timelineStart = '7 days';
-			tickCapacitySeconds = 60 * 60 * 3;
-			break;
-		case 'month':
-			timelineStart = '30 days';
-			tickCapacitySeconds = 60 * 60 * 12;
+		case 'hours':
+			timelineStart = '6 hours';
+			tickCapacitySeconds = 60 * 5;
 			break;
 		case 'quarter':
 			timelineStart = '90 days';
 			tickCapacitySeconds = 60 * 60 * 24;
 			break;
 		case 'year':
-			timelineStart = '1 year';
+			timelineStart = 'year';
 			tickCapacitySeconds = 60 * 60 * 24 * 7;
 			break;
 	}
@@ -79,13 +71,7 @@
 	<div class="header columns is-mobile">
 		<div class="column is-3">
 			<p class="is-size-5 has-text-weight-bold">
-				<a href={name} target="_blank">
-					<span class="has-text-grey">{urlSplit(name)[0]}</span><!--
-					-->{urlSplit(
-						name
-					)[1]}<!--
-		 --></a
-				>
+				<a class="has-text-link-dark" href="{name}" target="_blank">{name}</a>
 			</p>
 		</div>
 		<div class="column has-text-right">

@@ -1,57 +1,49 @@
 <script>
 	import { viewStore } from '$lib/stores.js';
 
-	export let view = '';
+	let curViewName = '';
+	let curViewIconClass = '';
 
 	const views = [
-		{ name: 'day', icon: 'fa-calendar-day' },
-		{ name: 'week', icon: 'fa-calendar-week' },
-		{ name: 'month', icon: 'fa-calendar-days' },
-		{ name: 'quarter', icon: 'fa-table-cells-large' },
-		{ name: 'year', icon: 'fa-earth-asia' }
+		{ name: 'hours', icon: 'fa fa-clock' },
+		{ name: 'quarter', icon: 'fa fa-calendar-days' },
+		{ name: 'year', icon: 'fa fa-earth-asia' }
 	];
 
-	function capitalize(string) {
-		return string.charAt(0).toUpperCase() + string.slice(1);
-	}
+	function nextView(e) {
+		let viewsList = views.map((x) => x.name);
+		let i = viewsList.indexOf(view) + 1;
 
-	function setView(e) {
-		let view = e.target.getAttribute('pagetron-data');
+		if (i >= views.length) {
+			i = 0;
+		}
+
 		if (view != null) {
-			viewStore.set(view);
+			viewStore.set(viewsList[i]);
 		}
 	}
 
+	let view = '';
+
 	viewStore.subscribe((value) => (view = value));
+
+	$: view;
+	$: curViewIconClass = views.filter((x) => x.name == view)[0]["icon"];
 </script>
 
-<div class="container block">
-	<nav class="pagination is-centered" role="navigation" aria-label="pagination">
-		<ul class="pagination-list">
-			{#each views as { name, icon }, i}
-				<li>
-					<a
-						class="
-            pagination-link
-            {name == view ? 'is-current' : ''}
-          "
-						aria-label="Goto {name} view"
-						pagetron-data={name}
-						on:click={setView}
-					>
-						<i class="fa {icon}"></i>
-						&nbsp; {capitalize(name)}
-					</a>
-				</li>
-			{/each}
-		</ul>
-	</nav>
+<div class="navbar-item">
+	<a
+		id="viewSelector"
+		class="button is-dark has-text-left"
+		on:click={nextView}
+	>
+		<span class="{curViewIconClass}"></span>
+		<span class="is-capitalized"> &nbsp; {view} </span>
+	</a>
 </div>
 
 <style>
-	ul.pagination-list a.is-current {
-		color: #0a0a0a;
-		background-color: #ffffff;
-		border-color: #7a7a7a;
-	}
+a#viewSelector {
+	width: 120px;
+}
 </style>
