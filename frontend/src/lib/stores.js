@@ -1,3 +1,3 @@
 import { writable } from 'svelte/store';
 
-export const viewStore = writable('day');
+export const viewStore = writable('quarter');

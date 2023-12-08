@@ -45,24 +45,16 @@
 
 	let timelineStart = '';
 	switch (view) {
-		case 'day':
-			timelineStart = '24 hours';
-			tickCapacitySeconds = 60 * 15;
-			break;
-		case 'week':
-			timelineStart = '7 days';
-			tickCapacitySeconds = 60 * 60 * 3;
-			break;
-		case 'month':
-			timelineStart = '30 days';
-			tickCapacitySeconds = 60 * 60 * 12;
+		case 'hours':
+			timelineStart = '6 hours';
+			tickCapacitySeconds = 60 * 5;
 			break;
 		case 'quarter':
 			timelineStart = '90 days';
 			tickCapacitySeconds = 60 * 60 * 24;
 			break;
 		case 'year':
-			timelineStart = '1 year';
+			timelineStart = 'year';
 			tickCapacitySeconds = 60 * 60 * 24 * 7;
 			break;
 	}

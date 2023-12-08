@@ -4,10 +4,8 @@
 	export let view = '';
 
 	const views = [
-		{ name: 'day', icon: 'fa-calendar-day' },
-		{ name: 'week', icon: 'fa-calendar-week' },
-		{ name: 'month', icon: 'fa-calendar-days' },
-		{ name: 'quarter', icon: 'fa-table-cells-large' },
+		{ name: 'hours', icon: 'fa-clock' },
+		{ name: 'quarter', icon: 'fa-calendar-days' },
 		{ name: 'year', icon: 'fa-earth-asia' }
 	];
 

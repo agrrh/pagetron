@@ -31,7 +31,7 @@
 	}
 
 	if (downtime > 0) {
-		let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 1, units: ['h', 'm', 's'] });
+		let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 1, units: ['w', 'd', 'h', 'm', 's'] });
 		downtimeHumanText = '\n' + 'down for ' + downtimeHuman;
 	}
 </script>
