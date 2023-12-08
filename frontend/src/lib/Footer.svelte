@@ -1,3 +1,7 @@
+<script>
+	let version = 'dev';
+</script>
+
 <section>
 	<div class="container has-text-grey has-text-centered is-size-7">
 		<p>
@@ -5,14 +9,14 @@
 			<a class="has-text-grey-dark" href="https://github.com/agrrh/pagetron"> Pagetron </a>
 		</p>
 
+		<p>version <span class="is-family-code">{version}</span></p>
+
 		<p>
 			Made with
 			<i class="fas fa-mug-hot"></i>
 			and
 			<i class="fas fa-heart"></i>
 		</p>
-
-		<p>version 1.2.3 / 2023-12-02</p>
 	</div>
 </section>
 
