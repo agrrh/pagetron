@@ -62,6 +62,6 @@
 	}
 
 	div.tick.has-minor-issue {
-		border-top: 2px solid #ffe08a;
+		border-top: 5px solid #ffe08a;
 	}
 </style>

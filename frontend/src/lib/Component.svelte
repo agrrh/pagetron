@@ -71,13 +71,7 @@
 	<div class="header columns is-mobile">
 		<div class="column is-3">
 			<p class="is-size-5 has-text-weight-bold">
-				<a href={name} target="_blank">
-					<span class="has-text-grey">{urlSplit(name)[0]}</span><!--
-					-->{urlSplit(
-						name
-					)[1]}<!--
-		 --></a
-				>
+				<a class="has-text-link-dark" href="{name}" target="_blank">{name}</a>
 			</p>
 		</div>
 		<div class="column has-text-right">
