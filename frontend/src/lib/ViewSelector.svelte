@@ -28,22 +28,18 @@
 	viewStore.subscribe((value) => (view = value));
 
 	$: view;
-	$: curViewIconClass = views.filter((x) => x.name == view)[0]["icon"];
+	$: curViewIconClass = views.filter((x) => x.name == view)[0]['icon'];
 </script>
 
 <div class="navbar-item">
-	<a
-		id="viewSelector"
-		class="button is-dark has-text-left"
-		on:click={nextView}
-	>
-		<span class="{curViewIconClass}"></span>
+	<a id="viewSelector" class="button is-dark has-text-left" on:click={nextView}>
+		<span class={curViewIconClass}></span>
 		<span class="is-capitalized"> &nbsp; {view} </span>
 	</a>
 </div>
 
 <style>
-a#viewSelector {
-	width: 120px;
-}
+	a#viewSelector {
+		width: 120px;
+	}
 </style>

@@ -71,7 +71,7 @@
 	<div class="header columns is-mobile">
 		<div class="column is-3">
 			<p class="is-size-5 has-text-weight-bold">
-				<a class="has-text-link-dark" href="{name}" target="_blank">{name}</a>
+				<a class="has-text-link-dark" href={name} target="_blank">{name}</a>
 			</p>
 		</div>
 		<div class="column has-text-right">

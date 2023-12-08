@@ -34,7 +34,7 @@
 	} else if (uptime > thresholds[0]) {
 		tickStateClasses = 'has-background-success';
 		if (downtime > 0) {
-			tickStateClasses += " " + "has-minor-issue";
+			tickStateClasses += ' ' + 'has-minor-issue';
 		}
 	} else if (uptime > thresholds[1]) {
 		tickStateClasses = 'has-background-warning';
