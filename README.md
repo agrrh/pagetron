@@ -28,7 +28,6 @@ Platform
 
 Frontend
 
-
   - [Svelte](https://svelte.dev)
 
 Backend
