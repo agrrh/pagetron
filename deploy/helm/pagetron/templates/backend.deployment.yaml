@@ -35,7 +35,7 @@ spec:
             - name: APP_CORS_ORIGINS
               value: "{{ $.Values.publicUrl }}"
             - name: PROMETHEUS_ADDR
-              value: http://prometheus:9090/
+              value: "{{ $.Values.prometheusUrl }}"
 
           ports:
             - name: http
