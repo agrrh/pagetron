@@ -6,13 +6,13 @@ on:
   # schedule:
   #   - cron: "0 10 * * *"
   push:
-    branches:
-      - "**"
+    # branches:
+    #   - "**"
     tags:
       - "v*.*.*"
-  pull_request:
-    branches:
-      - "master"
+  # pull_request:
+  #   branches:
+  #     - "master"
 
 jobs:
   docker:
