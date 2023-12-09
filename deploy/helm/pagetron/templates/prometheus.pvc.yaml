@@ -1,0 +1,18 @@
+{{- with $.Values.prometheus }}
+
+---
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+
+metadata:
+  name: pagetron-prometheus-data
+
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+{{- end }}

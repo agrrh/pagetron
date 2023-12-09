@@ -1,0 +1,83 @@
+{{- with $.Values.prometheus }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: pagetron-prometheus-config
+
+data:
+  prometheus.yaml: |
+    global:
+      scrape_interval: 15s
+      scrape_timeout: 10s
+      evaluation_interval: 60s
+
+    rule_files:
+      - "rules_pagetron.yaml"
+
+    scrape_configs:
+      # self monitoring
+      - job_name: prometheus
+        metrics_path: "/metrics"
+        scheme: "http"
+        static_configs:
+          - targets:
+              - "localhost:9090"
+
+      # blackbox operational metrics
+      - job_name: "blackbox_exporter"
+        static_configs:
+          - targets:
+              - blackbox:9115
+
+      # resources
+      - job_name: "blackbox"
+        metrics_path: /probe
+        params:
+          module:
+            - http_2xx
+        static_configs:
+          {{- with $.Values.targets }}
+          - targets:
+            {{- toYaml . | nindent 14 }}
+          {{- end }}
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox:9115
+
+  rules_pagetron.yaml: |
+    groups:
+      - name: pagetron_minute
+        interval: 15s
+        rules:
+          - record: pagetron:availability:1m
+            expr: |-
+                sum by (instance) (
+                  probe_success == bool 1
+                  and probe_http_status_code >= bool 200
+                  and probe_http_status_code < bool 300
+                  and probe_duration_seconds < bool 2
+                )
+
+      - name: pagetron_hour
+        interval: 60s
+        rules:
+          - record: pagetron:availability:1h
+            expr: |-
+                avg_over_time(pagetron:availability:1m[60m:1m])
+
+      - name: pagetron_day
+        interval: 30m
+        rules:
+          - record: pagetron:availability:1d
+            expr: |-
+                avg_over_time(pagetron:availability:1h[24h:30m])
+
+{{- end }}

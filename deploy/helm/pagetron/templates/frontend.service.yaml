@@ -1,0 +1,26 @@
+{{- with $.Values.frontend }}
+
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: pagetron-frontend
+  labels:
+    app: pagetron
+    component: frontend
+
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+
+  selector:
+    app: pagetron
+    component: frontend
+
+{{- end }}

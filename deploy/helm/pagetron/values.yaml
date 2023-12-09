@@ -1,0 +1,102 @@
+---
+
+nameOverride: ""
+fullnameOverride: ""
+
+targets:
+  - https://www.docker.com
+  - https://kubernetes.io
+  - https://svelte.dev
+  - https://fastapi.tiangolo.com
+  - https://prometheus.io
+
+backend:
+  replicas: 1
+  image:
+    repository: agrrh/pagetron-backend
+    pullPolicy: IfNotPresent
+    tag: ""
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  nodeSelector: {}
+  tolerations: []
+
+frontend:
+  replicas: 1
+  image:
+    repository: agrrh/pagetron-frontend
+    pullPolicy: IfNotPresent
+    tag: ""
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  nodeSelector: {}
+  tolerations: []
+
+prometheus:
+  replicas: 1
+  image:
+    repository: prom/prometheus
+    pullPolicy: IfNotPresent
+    tag: v2.48.0
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 2Gi
+    requests:
+      cpu: 50m
+      memory: 256Mi
+
+  nodeSelector: {}
+  tolerations: []
+
+blackbox:
+  replicas: 1
+  image:
+    repository: prom/blackbox-exporter
+    pullPolicy: IfNotPresent
+    tag: v0.24.0
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  nodeSelector: {}
+  tolerations: []
+
+housekeeper:
+  schedule: "0 10 * * 5"
+
+  image:
+    repository: curlimages/curl
+    pullPolicy: IfNotPresent
+    tag: 8.4.0
+
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  nodeSelector: {}
+  tolerations: []

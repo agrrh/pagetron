@@ -1,0 +1,61 @@
+{{- with $.Values.backend }}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: pagetron-backend
+  labels:
+    app: pagetron
+    component: backend
+
+spec:
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      app: pagetron
+      component: backend
+
+  template:
+    metadata:
+      labels:
+        app: pagetron
+        component: backend
+
+    spec:
+      containers:
+        - name: pagetron-backend
+
+          image: "{{ .image.repository }}:{{ .image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ .image.pullPolicy }}
+
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+
+          resources:
+            {{- toYaml .resources | nindent 12 }}
+
+      {{- with .nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+{{- end }}
