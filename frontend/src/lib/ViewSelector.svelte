@@ -1,13 +1,6 @@
 <script>
 	import { viewStore } from '$lib/stores.js';
 
-	let curViewName = '';
-	let curViewIconClass = '';
-
-	let isActiveHours = "";
-	let isActiveQuarter = "";
-	let isActiveYear = "";
-
 	let view = '';
 	let views = [
 		{ name: 'year', icon: 'fa fa-earth-asia' },
@@ -33,7 +26,7 @@
 </script>
 
 <div class="navbar-item">
-	<a id="viewSelector" class="button is-dark" on:click={cycleViews} transition:fade={options}>
+	<a id="viewSelector" class="button is-dark" on:click={cycleViews}>
 		<span class="{views[0]['icon']} has-text-grey"></span>
 		<span class="{views[1]['icon']} mr-3 ml-3 is-size-5"></span>
 		<span class="{views[2]['icon']} has-text-grey"></span>
