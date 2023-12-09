@@ -10,6 +10,8 @@ targets:
   - https://fastapi.tiangolo.com
   - https://prometheus.io
 
+publicUrl: "https://pagetron.example.org"
+
 backend:
   replicas: 1
   image:
