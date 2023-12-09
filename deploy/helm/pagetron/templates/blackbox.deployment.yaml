@@ -1,0 +1,61 @@
+{{- with $.Values.blackbox }}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: blackbox
+  labels:
+    app: pagetron
+    component: blackbox
+
+spec:
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      app: pagetron
+      component: blackbox
+
+  template:
+    metadata:
+      labels:
+        app: pagetron
+        component: blackbox
+
+    spec:
+      containers:
+        - name: blackbox
+
+          image: "{{ .image.repository }}:{{ .image.tag }}"
+          imagePullPolicy: {{ .image.pullPolicy }}
+
+          ports:
+            - name: http
+              containerPort: 9115
+              protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+
+          resources:
+            {{- toYaml .resources | nindent 12 }}
+
+      {{- with .nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+{{- end }}

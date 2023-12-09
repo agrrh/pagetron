@@ -1,0 +1,34 @@
+{{- with $.Values.housekeeper }}
+
+---
+
+apiVersion: batch/v1
+kind: CronJob
+
+metadata:
+  name: pagetron-housekeeper
+  labels:
+    app: pagetron
+    component: housekeeper
+
+spec:
+  schedule: {{ .schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: housekeeper
+              image: "{{ .image.repository }}:{{ .image.tag }}"
+              imagePullPolicy: IfNotPresent
+              command: ["curl"]
+              args:
+                - --request
+                - POST
+                - --globoff
+                - --data-urlencode
+                - 'match[]={__name__!~"pagetron:.+"}'
+                - http://pagetron-prometheus:9090/api/v1/admin/tsdb/delete_series
+
+{{- end }}

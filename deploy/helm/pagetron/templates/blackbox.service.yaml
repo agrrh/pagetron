@@ -1,0 +1,26 @@
+{{- with $.Values.blackbox }}
+
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: blackbox
+  labels:
+    app: pagetron
+    component: blackbox
+
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9115
+      targetPort: http
+      protocol: TCP
+
+  selector:
+    app: pagetron
+    component: blackbox
+
+{{- end }}
