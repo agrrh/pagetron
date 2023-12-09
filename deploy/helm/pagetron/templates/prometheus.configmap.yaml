@@ -33,6 +33,13 @@ data:
           - targets:
               - blackbox:9115
 
+      # custom metrics
+      - job_name: "metrics_custom"
+        metrics_path: "/metrics_custom/"
+        honor_labels: true
+        static_configs:
+          - targets: ['pagetron-backend:80']
+
       # resources
       - job_name: "blackbox"
         metrics_path: /probe
