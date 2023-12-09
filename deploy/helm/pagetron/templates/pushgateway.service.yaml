@@ -1,0 +1,26 @@
+{{- with $.Values.pushgateway }}
+
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: pushgateway
+  labels:
+    app: pagetron
+    component: pushgateway
+
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9091
+      targetPort: http
+      protocol: TCP
+
+  selector:
+    app: pagetron
+    component: pushgateway
+
+{{- end }}

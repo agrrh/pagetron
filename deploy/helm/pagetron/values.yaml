@@ -87,6 +87,24 @@ blackbox:
   nodeSelector: {}
   tolerations: []
 
+pushgateway:
+  replicas: 1
+  image:
+    repository: prom/pushgateway
+    pullPolicy: IfNotPresent
+    tag: v1.6.2
+
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  nodeSelector: {}
+  tolerations: []
+
 housekeeper:
   schedule: "0 10 * * 5"
 

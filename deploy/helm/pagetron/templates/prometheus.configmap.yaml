@@ -33,6 +33,12 @@ data:
           - targets:
               - blackbox:9115
 
+      # pushed metrics
+      - job_name: "pushgateway"
+        honor_labels: true
+        static_configs:
+          - targets: ['pushgateway:9091']
+
       # resources
       - job_name: "blackbox"
         metrics_path: /probe
