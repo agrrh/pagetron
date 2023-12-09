@@ -10,6 +10,11 @@ targets:
   - https://fastapi.tiangolo.com
   - https://prometheus.io
 
+publicUrl: "https://pagetron.example.org"
+
+# May be changed to use external Prometheus
+prometheusUrl: "http://prometheus:9090/"
+
 backend:
   replicas: 1
   image:

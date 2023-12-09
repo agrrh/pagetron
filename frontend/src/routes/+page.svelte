@@ -1,4 +1,6 @@
 <script>
+	import { apiUrl } from '$lib/api.js'
+
 	import { viewStore } from '$lib/stores.js';
 
 	import Header from '$lib/Header.svelte';
@@ -10,10 +12,10 @@
 	async function fetchData() {
 		let response;
 
-		response = await fetch(`http://127.0.0.1:3000/overview/`);
+		response = await fetch(apiUrl + `/overview/`);
 		const overview = await response.json();
 
-		response = await fetch(`http://127.0.0.1:3000/components/`);
+		response = await fetch(apiUrl + `/components/`);
 		const components = await response.json();
 
 		return { overview, components };

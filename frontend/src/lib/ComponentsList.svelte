@@ -1,4 +1,6 @@
 <script>
+	import { apiUrl } from '$lib/api.js'
+
 	import Component from '$lib/Component.svelte';
 
 	export let components = [];
@@ -7,7 +9,7 @@
 	async function fetchData(name, view) {
 		let response;
 
-		response = await fetch(`http://127.0.0.1:3000/components/?name=${name}&view=${view}`);
+		response = await fetch(apiUrl + `/components/?name=${name}&view=${view}`);
 		const data = await response.json();
 
 		return data;
