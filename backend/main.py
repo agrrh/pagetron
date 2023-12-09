@@ -1,5 +1,7 @@
 import os
 
+import ttl_cache
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -9,6 +11,9 @@ DEFAULT_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:5173",
 ]
+
+# Pings are not more frequent that 15s
+CACHE_TTL_DEFAULT = 15.0 * 1.5
 
 app = FastAPI()
 
@@ -36,12 +41,14 @@ def read_root():
 
 
 @app.get("/overview/")
+@ttl_cache(CACHE_TTL_DEFAULT)
 def get_overview():
     overview = db.get_overview()
     return overview
 
 
 @app.get("/components/")
+@ttl_cache(CACHE_TTL_DEFAULT)
 def get_components_or_details(name: str | None = None, view: str = "quarter"):
     if not name:
         components = db.list_components()
