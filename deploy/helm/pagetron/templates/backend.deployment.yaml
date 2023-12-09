@@ -31,6 +31,10 @@ spec:
           image: "{{ .image.repository }}:{{ .image.tag | default $.Chart.AppVersion }}"
           imagePullPolicy: {{ .image.pullPolicy }}
 
+          env:
+            - name: PROMETHEUS_ADDR
+              value: http://prometheus:9090/
+
           ports:
             - name: http
               containerPort: 3000
