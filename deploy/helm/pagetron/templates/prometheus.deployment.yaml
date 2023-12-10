@@ -12,6 +12,8 @@ metadata:
     component: prometheus
 
 spec:
+  strategy:
+    type: Recreate
   replicas: {{ .replicas }}
   selector:
     matchLabels:
