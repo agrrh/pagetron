@@ -7,7 +7,7 @@
 	export let view = 'quarter';
 
 	export let name = 'changeme';
-	export let uptime = 1.0;
+	export let uptime = 0.0;
 	export let observations = [];
 	export let tickCapacitySeconds = 60;
 
@@ -35,7 +35,10 @@
 		return [proto, hostAndPath];
 	}
 
-	if (uptime > thresholds[0]) {
+	if (dummy) {
+		uptimeStateClasses = 'has-text-grey';
+	}
+	else if (uptime > thresholds[0]) {
 		uptimeStateClasses = 'has-text-success';
 	} else if (uptime > thresholds[1]) {
 		uptimeStateClasses = 'has-text-warning-dark';
@@ -82,9 +85,13 @@
 	</div>
 
 	<div class="body">
-		{#each observations as tick}
-			<Tick id={tick[0]} uptime={tick[1]} capacity={tickCapacitySeconds} />
-		{/each}
+		{#if dummy}
+			<progress class="progress is-small is-gray mt-2 mb-1" max="100">0%</progress>
+		{:else}
+			{#each observations as tick}
+				<Tick id={tick[0]} uptime={tick[1]} capacity={tickCapacitySeconds} />
+			{/each}
+		{/if}
 	</div>
 
 	<div class="info columns is-mobile has-text-grey is-size-7">
