@@ -17,7 +17,9 @@ CACHE_TTL_DEFAULT = 15.0 * 1.5
 
 app = FastAPI()
 
-origins = [_ for _ in os.environ.get("APP_CORS_ORIGINS", "").split(",") if _] or DEFAULT_ORIGINS
+origins = [
+    _ for _ in os.environ.get("APP_CORS_ORIGINS", "").split(",") if _
+] or DEFAULT_ORIGINS
 
 app.add_middleware(
     CORSMiddleware,
