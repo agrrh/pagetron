@@ -22,7 +22,7 @@
 	<div class="container">
 		{#each components as componentName}
 			{#await fetchData(componentName, view)}
-				<Component name="..." dummy="true" />
+				<Component name="{componentName}" dummy="true" />
 			{:then data}
 				<Component name={data.name} observations={data.observations} uptime={data.uptime} {view} />
 			{:catch error}
