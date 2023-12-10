@@ -7,7 +7,7 @@
 	export let view = 'quarter';
 
 	export let name = 'changeme';
-	export let uptime = 1.0;
+	export let uptime = 0.0;
 	export let observations = [];
 	export let tickCapacitySeconds = 60;
 
@@ -35,7 +35,10 @@
 		return [proto, hostAndPath];
 	}
 
-	if (uptime > thresholds[0]) {
+	if (dummy) {
+		uptimeStateClasses = 'has-text-grey';
+	}
+	else if (uptime > thresholds[0]) {
 		uptimeStateClasses = 'has-text-success';
 	} else if (uptime > thresholds[1]) {
 		uptimeStateClasses = 'has-text-warning-dark';
