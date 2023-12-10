@@ -51,10 +51,12 @@ with open("backfill_data.txt", "w+") as fp:
     for measurement in historical_data:
         value = measurement / 100.0
 
-        openmetrics_line = f"pagetron:availability:1d{{instance="{observed_resource}"}} {value} {timestamp}"
+        openmetrics_line = f"pagetron:availability:1d{{instance=\"{observed_resource}\"}} {value} {timestamp}"
         fp.write(openmetrics_line + "\n")
 
         timestamp -= 3600 * 24
+
+    fp.write("# EOF" + "\n")
 
 print("done")
 ```
@@ -63,7 +65,7 @@ print("done")
 
 ```
 mkdir backfill_data
-promtool  tsdb create-blocks-from openmetrics ./backfill_data.txt ./backfill_data
+promtool tsdb create-blocks-from openmetrics ./backfill_data.txt ./backfill_data
 ```
 
 Then just move these blocks to prometheus data directory:
