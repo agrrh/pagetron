@@ -57,12 +57,3 @@ def get_components_or_details(name: str | None = None, view: str = "quarter"):
 
     component = db.get_component(name=name, view=view)
     return component
-
-
-@app.get("/metrics_custom/", response_class=PlainTextResponse)
-def get_imported_metrics():
-    metrics = """
-    pagetron:availability:1d{instance="http://test"} 1.0 1702161218000
-    pagetron:availability:1d{instance="http://test"} 0.0 1672520400000
-    """
-    return "\n".join([m.strip() for m in metrics.split("\n")])
