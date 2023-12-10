@@ -9,8 +9,8 @@ Let'say, we want to import data for last year.
 Today's noon timestamp:
 
 ```
-$ date +%s -d '12:00'
-1702198800
+$ date +%s -d '1 day ago 12:00'
+1702112400
 ```
 
 Remember this value.
@@ -44,7 +44,7 @@ Here's simple Python script to do so:
 historical_data = []
 
 observed_resource = "https://example.org"
-starting_timestamp = 1702198800
+starting_timestamp = 1702112400
 
 with open("backfill_data.txt", "w+") as fp:
     timestamp = starting_timestamp
