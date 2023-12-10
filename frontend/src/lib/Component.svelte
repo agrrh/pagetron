@@ -82,9 +82,13 @@
 	</div>
 
 	<div class="body">
-		{#each observations as tick}
-			<Tick id={tick[0]} uptime={tick[1]} capacity={tickCapacitySeconds} />
-		{/each}
+		{#if dummy}
+			<progress class="progress is-small is-gray mt-2 mb-1" max="100">0%</progress>
+		{:else}
+			{#each observations as tick}
+				<Tick id={tick[0]} uptime={tick[1]} capacity={tickCapacitySeconds} />
+			{/each}
+		{/if}
 	</div>
 
 	<div class="info columns is-mobile has-text-grey is-size-7">
