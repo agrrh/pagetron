@@ -16,7 +16,7 @@ publicUrl: "https://pagetron.example.org"
 prometheusUrl: "http://prometheus:9090/"
 
 backend:
-  replicas: 1
+  replicas: 2
   image:
     repository: agrrh/pagetron-backend
     pullPolicy: IfNotPresent
@@ -34,7 +34,7 @@ backend:
   tolerations: []
 
 frontend:
-  replicas: 1
+  replicas: 2
   image:
     repository: agrrh/pagetron-frontend
     pullPolicy: IfNotPresent
