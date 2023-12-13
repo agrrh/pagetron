@@ -93,8 +93,6 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: data
-              mountPath: /prometheus
 
           resources:
             limits:
