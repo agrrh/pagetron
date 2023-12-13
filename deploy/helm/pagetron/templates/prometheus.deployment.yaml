@@ -81,7 +81,7 @@ spec:
             - -volume-dir=/config
             - -webhook-method=POST
             - -webhook-status-code=200
-            - -webhook-url="127.0.0.1:9090/-/reload"
+            - -webhook-url=http://127.0.0.1:9090/-/reload
             - -webhook-retries=1
 
           volumeMounts:
