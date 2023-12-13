@@ -64,7 +64,9 @@ data:
       {{- end }}
 
       # custom metrics sources: {{ len $.Values.customMetricSources }} item(s)
+      {{- if gt (len $.Values.customMetricSources) 0 }}
       {{- toYaml $.Values.customMetricSources | nindent 6 }}
+      {{- end }}
 
   rules_pagetron.yaml: |
     groups:
