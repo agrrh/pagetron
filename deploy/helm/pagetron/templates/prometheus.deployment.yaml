@@ -61,10 +61,10 @@ spec:
               port: http
 
           volumeMounts:
-            - mountPath: /etc/prometheus
-              name: config
-            - mountPath: /prometheus
-              name: data
+            - name: config
+              mountPath: /etc/prometheus
+            - name: data
+              mountPath: /prometheus
 
           resources:
             {{- toYaml .resources | nindent 12 }}
