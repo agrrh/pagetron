@@ -83,9 +83,9 @@ customMetricSources: []
 #  - Located in same namespace
 # These would be mounted to `/secrets` path as separate directories
 # Operator may mention those in custom metric sources list
-additionalSecrets:
-  - my-exporter-token
-  - yandex-cloud
+additionalSecrets: []
+  # - my-exporter-token
+  # - yandex-cloud
 
 backend:
   replicas: 2
