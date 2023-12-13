@@ -27,6 +27,15 @@ data:
           - targets:
               - "localhost:9090"
 
+      {{- if .reloader.enabled }}
+      - job_name: reloader
+        metrics_path: "/metrics"
+        scheme: "http"
+        static_configs:
+          - targets:
+              - "localhost:9533"
+      {{- end }}
+
       # blackbox operational metrics
       - job_name: "blackbox_exporter"
         static_configs:
