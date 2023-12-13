@@ -36,12 +36,10 @@ query1m: |-
 # Use scrape_config format:
 #   https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config
 customMetricSources: []
-  #
   # AWS
-  #
-
   # Cloudwatch Exporter
   # https://github.com/prometheus/cloudwatch_exporter
+  #
   # - job_name: aws-cloudwatch-exporter
   #   scheme: http
   #   metrics_path: /metrics
@@ -49,8 +47,10 @@ customMetricSources: []
   #     - targets:
   #         - cloudwatch-exporter:9106
 
+  # AWS
   # Yet Another Cloudwatch Exporter
   # https://github.com/nerdswords/yet-another-cloudwatch-exporter
+  #
   # - job_name: aws-yace
   #   scheme: http
   #   metrics_path: /metrics
@@ -60,8 +60,8 @@ customMetricSources: []
 
   #
   # Yandex Cloud
+  # https://cloud.yandex.com/en-ru/docs/monitoring/operations/metric/prometheusExport
   #
-
   # - job_name: yc-monitoring-export
   #   metrics_path: /monitoring/v2/prometheusMetrics
   #   scheme: https
