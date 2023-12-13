@@ -15,6 +15,23 @@ publicUrl: "https://pagetron.example.org"
 # May be changed to use external Prometheus
 prometheusUrl: "http://prometheus:9090/"
 
+#
+# User may want to change default availability check rule
+#
+# Result MUST be in form of:
+#   - labels:
+#     - "instance" - REQUIRED with target name as value, e.g. "https://example.com"
+#     - other labels allowed
+#   - value: integer, 1 if considered available, otherwise 0
+#
+query1m: |-
+  sum by (instance) (
+    probe_success == bool 1
+    and probe_http_status_code >= bool 200
+    and probe_http_status_code < bool 300
+    and probe_duration_seconds < bool 2
+  )
+
 # State any external metrics here
 # Use scrape_config format:
 #   https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config
