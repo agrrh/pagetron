@@ -42,7 +42,8 @@ data:
           - targets:
               - blackbox:9115
 
-      # resources
+      # resources: {{ len $.Values.targets }} item(s)
+      {{- if gt (len $.Values.targets) 0 }}
       - job_name: "blackbox"
         metrics_path: /probe
         params:
@@ -60,6 +61,10 @@ data:
             target_label: instance
           - target_label: __address__
             replacement: blackbox:9115
+      {{- end }}
+
+      # custom metrics sources: {{ len $.Values.customMetricSources }} item(s)
+      {{- toYaml $.Values.customMetricSources | nindent 6 }}
 
   rules_pagetron.yaml: |
     groups:

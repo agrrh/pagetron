@@ -15,6 +15,52 @@ publicUrl: "https://pagetron.example.org"
 # May be changed to use external Prometheus
 prometheusUrl: "http://prometheus:9090/"
 
+# State any external metrics here
+# Use scrape_config format:
+#   https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config
+customMetricSources: []
+  #
+  # AWS
+  #
+
+  # Cloudwatch Exporter
+  # https://github.com/prometheus/cloudwatch_exporter
+  # - job_name: aws-cloudwatch-exporter
+  #   scheme: http
+  #   metrics_path: /metrics
+  #   static_configs:
+  #     - targets:
+  #         - cloudwatch-exporter:9106
+
+  # Yet Another Cloudwatch Exporter
+  # https://github.com/nerdswords/yet-another-cloudwatch-exporter
+  # - job_name: aws-yace
+  #   scheme: http
+  #   metrics_path: /metrics
+  #   static_configs:
+  #     - targets:
+  #         - aws-yace:5000
+
+  #
+  # Yandex Cloud
+  #
+
+  # - job_name: yc-monitoring-export
+  #   metrics_path: /monitoring/v2/prometheusMetrics
+  #   scheme: https
+  #   params:
+  #     folderId:
+  #       - my-folder
+  #     service:
+  #       - application-load-balancer
+  #   bearer_token_file: /secrets/yandex-cloud/bearer.key
+  #   static_configs:
+  #     - targets:
+  #         - monitoring.api.cloud.yandex.net
+  #       labels:
+  #         service: application-load-balancer
+  #         folderId: my-folder
+
 backend:
   replicas: 2
   image:
