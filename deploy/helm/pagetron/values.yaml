@@ -66,6 +66,12 @@ prometheus:
       cpu: 50m
       memory: 256Mi
 
+  reloader:
+    enabled: true
+    image:
+      repository: ghcr.io/jimmidyson/configmap-reload
+      tag: v0.12.0
+
   nodeSelector: {}
   tolerations: []
 
