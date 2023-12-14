@@ -15,6 +15,78 @@ publicUrl: "https://pagetron.example.org"
 # May be changed to use external Prometheus
 prometheusUrl: "http://prometheus:9090/"
 
+#
+# User may want to change default availability check rule
+#
+# Result MUST be in form of:
+#   - labels:
+#     - "instance" - REQUIRED with target name as value, e.g. "https://example.com"
+#     - other labels allowed
+#   - value: integer, 1 if considered available, otherwise 0
+#
+query1m: |-
+  sum by (instance) (
+    probe_success == bool 1
+    and probe_http_status_code >= bool 200
+    and probe_http_status_code < bool 300
+    and probe_duration_seconds < bool 2
+  )
+
+# State any external metrics here
+# Use scrape_config format:
+#   https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config
+customMetricSources: []
+  # AWS
+  # Cloudwatch Exporter
+  # https://github.com/prometheus/cloudwatch_exporter
+  #
+  # - job_name: aws-cloudwatch-exporter
+  #   scheme: http
+  #   metrics_path: /metrics
+  #   static_configs:
+  #     - targets:
+  #         - cloudwatch-exporter:9106
+
+  # AWS
+  # Yet Another Cloudwatch Exporter
+  # https://github.com/nerdswords/yet-another-cloudwatch-exporter
+  #
+  # - job_name: aws-yace
+  #   scheme: http
+  #   metrics_path: /metrics
+  #   static_configs:
+  #     - targets:
+  #         - aws-yace:5000
+
+  #
+  # Yandex Cloud
+  # https://cloud.yandex.com/en-ru/docs/monitoring/operations/metric/prometheusExport
+  #
+  # - job_name: yc-monitoring-export
+  #   metrics_path: /monitoring/v2/prometheusMetrics
+  #   scheme: https
+  #   params:
+  #     folderId:
+  #       - my-folder
+  #     service:
+  #       - application-load-balancer
+  #   bearer_token_file: /secrets/yandex-cloud/bearer.key
+  #   static_configs:
+  #     - targets:
+  #         - monitoring.api.cloud.yandex.net
+  #       labels:
+  #         service: application-load-balancer
+  #         folderId: my-folder
+
+# Secret expected to be:
+#  - Created separately
+#  - Located in same namespace
+# These would be mounted to `/secrets` path as separate directories
+# Operator may mention those in custom metric sources list
+additionalSecrets: []
+  # - my-exporter-token
+  # - yandex-cloud
+
 backend:
   replicas: 2
   image:

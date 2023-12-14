@@ -66,6 +66,12 @@ spec:
             - name: data
               mountPath: /prometheus
 
+            {{- range $secret := $.Values.additionalSecrets }}
+            - name: secret-{{ $secret }}
+              readOnly: true
+              mountPath: "/secrets/{{ $secret }}"
+            {{- end }}
+
           resources:
             {{- toYaml .resources | nindent 12 }}
 
@@ -87,8 +93,6 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: data
-              mountPath: /prometheus
 
           resources:
             limits:
@@ -107,6 +111,12 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: pagetron-prometheus-data
+
+        {{- range $secret := $.Values.additionalSecrets }}
+        - name: secret-{{ $secret }}
+          secret:
+            secretName: {{ $secret }}
+        {{- end }}
 
       {{- with .nodeSelector }}
       nodeSelector:
