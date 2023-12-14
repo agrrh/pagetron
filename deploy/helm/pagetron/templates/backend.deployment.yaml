@@ -32,6 +32,8 @@ spec:
           imagePullPolicy: {{ .image.pullPolicy }}
 
           env:
+            - name: TZ
+              value: {{ $.Values.timezone | quote }}
             - name: APP_CORS_ORIGINS
               value: "{{ $.Values.publicUrl }}"
             - name: PROMETHEUS_ADDR

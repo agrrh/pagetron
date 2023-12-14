@@ -22,6 +22,11 @@ spec:
             - name: housekeeper
               image: "{{ .image.repository }}:{{ .image.tag }}"
               imagePullPolicy: IfNotPresent
+
+              env:
+                - name: TZ
+                  value: {{ $.Values.timezone | quote }}
+
               command: ["/bin/ash"]
               args:
                 - /job/job.sh
