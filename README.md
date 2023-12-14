@@ -1,42 +1,26 @@
 # Pagetron
 
-Free status page generator you always wanted!
+Status page generator, based on Prometheus, designed to be deployed to Kubernetes clusters.
+
+[Demo Page](https://pagetron-demo.agrrh.com/)
+
+![screenshot](./docs/images/screenshot.png)
 
 ## About The Project
 
 Uses well-known technologies
 
-  - Prometheus under the hood
   - Kubernetes-ready
+  - Prometheus under the hood
 
-Built with modular architecture in mind
+Built with modularity in mind
 
-  - Easy to build e.g. your own UI
+  - Use external metrics sources
+  - Build your own UI
 
 Free to use and extend
 
   - Released under [WTFPL](https://ru.wikipedia.org/wiki/WTFPL), one of most permissive licenses
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Built With
-
-Platform
-
-  - [Docker](https://www.docker.com/)
-  - [Kubernetes](https://kubernetes.io/)
-
-Frontend
-
-  - [Svelte](https://svelte.dev)
-
-Backend
-
-  - [FastAPI](https://fastapi.tiangolo.com/)
-
-Storage
-
-  - [Prometheus](https://prometheus.io)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -46,18 +30,18 @@ Storage
 
 You must have Kubernetes cluster to be up and running to deploy this application in native way.
 
-You also may run it with Docker and possibly Docker Compose, after translating k8s manifests to docker or docker-compose scenario.
-
-See [./deploy](./deploy) folder.
-
 ### Installation
-
-⚠️ Development stage.
 
 At the moment, installation is as simple as:
 
 ```
-kubectl apply -R -f ./deploy
+git clone https://github.com/agrrh/pagetron.git
+
+helm install pagetron \
+  pagetron/deploy/helm/pagetron \
+  --upgrade \
+  --namespace pagetron \
+  --values values.yaml
 ```
 
 This will create some resources in your cluster:
@@ -73,54 +57,12 @@ This will create some resources in your cluster:
 
 ## Usage
 
-⚠️ Development stage.
-
-### Setting up monitoring
-
-To monitor your stuff, you must target metrics collector (currently, `blackbox` exporter) to desired resources in `deploy/prometheus/prometheus.configmap.yaml`:
-
-```
-- targets:
-  - https://example.org
-  - https://api.example.org
-```
-
-### Backend
-
-First, expose metrics on your local environment:
-
-```
-kubectl port-forward -n pagetron svc/prometheus 9090:9090
-```
-
-Then run backend API:
-
-```
-cd backend
-
-docker build . -t local/pagetron:backend
-docker run --rm -ti --network host local/pagetron:backend
-```
-
-### Frontend
-
-Just run frontend:
-
-```
-npm i
-npm run dev
-```
-
-Then you may visit UI:
-
-http://localhost:5173/
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Refer to wiki for [Quickstart](wiki#quickstart).
 
 ## Roadmap
 
 - [x] [Prototype Stage](https://github.com/agrrh/pagetron/milestone/1)
-- [ ] [Core Features](https://github.com/agrrh/pagetron/milestone/2)
+- [x] [Core Features](https://github.com/agrrh/pagetron/milestone/2)
 - [ ] [Nice To Have](https://github.com/agrrh/pagetron/milestone/3)
 
 See the [open issues](https://github.com/agrrh/pagetron/issues) for a full list of proposed features (and known issues).
