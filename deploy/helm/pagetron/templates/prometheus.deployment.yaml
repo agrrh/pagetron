@@ -33,6 +33,10 @@ spec:
           image: "{{ .image.repository }}:{{ .image.tag }}"
           imagePullPolicy: {{ .image.pullPolicy }}
 
+          env:
+            - name: TZ
+              value: {{ $.Values.timezone | quote }}
+
           command:
             - /bin/prometheus
           args:

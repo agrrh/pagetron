@@ -1,0 +1,39 @@
+{{- with $.Values.housekeeper }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: pagetron-housekeeper-job
+
+data:
+  job.sh: |
+    #/bin/ash
+
+    echo "Cleanup non-product metrics"
+    curl \
+      --request POST \
+      --globoff \
+      --data-urlencode 'match[]={__name__!~"pagetron:.+"}' \
+      --data-urlencode "end=$(date +%s -d '1 week ago')" \
+      http://prometheus:9090/api/v1/admin/tsdb/delete_series
+
+    echo "Cleanup old daily measurements"
+    curl \
+      --request POST \
+      --globoff \
+      --data-urlencode 'match[]={__name__="pagetron:availability:1m"}' \
+      --data-urlencode "end=$(date +%s -d '2 weeks ago')" \
+      http://prometheus:9090/api/v1/admin/tsdb/delete_series
+
+    echo "Cleanup old hourly measurements"
+    curl \
+      --request POST \
+      --globoff \
+      --data-urlencode 'match[]={__name__="pagetron:availability:1m"}' \
+      --data-urlencode "end=$(date +%s -d '3 months ago')" \
+      http://prometheus:9090/api/v1/admin/tsdb/delete_series
+
+{{- end }}

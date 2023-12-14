@@ -22,13 +22,22 @@ spec:
             - name: housekeeper
               image: "{{ .image.repository }}:{{ .image.tag }}"
               imagePullPolicy: IfNotPresent
-              command: ["curl"]
+
+              env:
+                - name: TZ
+                  value: {{ $.Values.timezone | quote }}
+
+              command: ["/bin/ash"]
               args:
-                - --request
-                - POST
-                - --globoff
-                - --data-urlencode
-                - 'match[]={__name__!~"pagetron:.+"}'
-                - http://pagetron-prometheus:9090/api/v1/admin/tsdb/delete_series
+                - /job/job.sh
+
+              volumeMounts:
+                - name: job
+                  mountPath: /job
+
+          volumes:
+            - name: job
+              configMap:
+                name: pagetron-housekeeper-job
 
 {{- end }}
