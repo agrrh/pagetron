@@ -18,7 +18,7 @@ data:
       --globoff \
       --data-urlencode 'match[]={__name__!~"pagetron:.+"}' \
       --data-urlencode "start=$(date +%s -d '1 week ago')" \
-      http://pagetron-prometheus:9090/api/v1/admin/tsdb/delete_series
+      http://prometheus:9090/api/v1/admin/tsdb/delete_series
 
     echo "Cleanup old daily measurements"
     curl \
@@ -26,7 +26,7 @@ data:
       --globoff \
       --data-urlencode 'match[]={__name__="pagetron:availability:1m"}' \
       --data-urlencode "start=$(date +%s -d '2 weeks ago')" \
-      http://pagetron-prometheus:9090/api/v1/admin/tsdb/delete_series
+      http://prometheus:9090/api/v1/admin/tsdb/delete_series
 
     echo "Cleanup old hourly measurements"
     curl \
@@ -34,6 +34,6 @@ data:
       --globoff \
       --data-urlencode 'match[]={__name__="pagetron:availability:1m"}' \
       --data-urlencode "start=$(date +%s -d '3 months ago')" \
-      http://pagetron-prometheus:9090/api/v1/admin/tsdb/delete_series
+      http://prometheus:9090/api/v1/admin/tsdb/delete_series
 
 {{- end }}
