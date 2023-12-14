@@ -14,7 +14,6 @@ data:
 
     echo "Cleanup non-product metrics"
     curl \
-      --silent \
       --request POST \
       --globoff \
       --data-urlencode 'match[]={__name__!~"pagetron:.+"}' \
@@ -23,7 +22,6 @@ data:
 
     echo "Cleanup old daily measurements"
     curl \
-      --silent \
       --request POST \
       --globoff \
       --data-urlencode 'match[]={__name__="pagetron:availability:1m"}' \
@@ -32,7 +30,6 @@ data:
 
     echo "Cleanup old hourly measurements"
     curl \
-      --silent \
       --request POST \
       --globoff \
       --data-urlencode 'match[]={__name__="pagetron:availability:1m"}' \
