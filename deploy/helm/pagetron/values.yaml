@@ -169,9 +169,9 @@ housekeeper:
   schedule: "0 10 * * 5"
 
   image:
-    repository: curlimages/curl
+    repository: agrrh/cider
     pullPolicy: IfNotPresent
-    tag: 8.4.0
+    tag: 0.5.0
 
   resources:
     limits:
