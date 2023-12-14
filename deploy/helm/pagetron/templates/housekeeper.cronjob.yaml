@@ -30,9 +30,9 @@ spec:
                 - name: job
                   mountPath: /job
 
-      volumes:
-        - name: job
-          configMap:
-            name: pagetron-housekeeper-job
+          volumes:
+            - name: job
+              configMap:
+                name: pagetron-housekeeper-job
 
 {{- end }}
