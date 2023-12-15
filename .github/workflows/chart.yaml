@@ -30,6 +30,8 @@ jobs:
 
       - name: Install Helm
         uses: azure/setup-helm@v3
+        container:
+          image: ubuntu:jammy
         env:
           GITHUB_TOKEN: "${{ secrets.CR_TOKEN }}"
 
