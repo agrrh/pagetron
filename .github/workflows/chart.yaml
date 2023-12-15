@@ -1,0 +1,40 @@
+---
+
+name: helm chart
+
+on:
+  push:
+    branches:
+      # - master
+      - feat/publish-charts
+
+jobs:
+  release:
+    name: Release Chart
+
+    runs-on: self-hosted
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+
+      # https://github.com/marketplace/actions/helm-chart-releaser
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          charts_dir: charts/
+        env:
+          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
