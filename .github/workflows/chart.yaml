@@ -5,8 +5,9 @@ name: helm chart
 on:
   push:
     branches:
-      # - master
-      - feat/publish-charts
+      - master
+    paths:
+      - "charts/pagetron/**"
 
 jobs:
   release:
@@ -16,9 +17,6 @@ jobs:
 
     permissions:
       contents: write
-
-    # container:
-    #   image: agrrh/github-runner
 
     steps:
       - name: Checkout
