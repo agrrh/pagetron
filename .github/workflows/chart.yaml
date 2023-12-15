@@ -28,6 +28,7 @@ jobs:
 
       - name: Configure Git
         run: |
+          cd $(pwd)
           git init
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
