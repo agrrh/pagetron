@@ -31,6 +31,7 @@ jobs:
           echo "[user]" >> .git/config
           echo "  name = \"$GITHUB_ACTOR\"" >> .git/config
           echo "  email = kovalev.kirill.a@gmail.com" >> .git/config
+          cat .git/config
 
       - name: Install Helm
         uses: azure/setup-helm@v3
