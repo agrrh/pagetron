@@ -44,4 +44,5 @@ jobs:
           CR_TOKEN: "${{ secrets.CR_TOKEN }}"
           GITHUB_TOKEN: "${{ secrets.CR_TOKEN }}"
         with:
+          install_dir: /usr/local/bin/
           charts_dir: charts/
