@@ -1,0 +1,32 @@
+---
+
+name: helm chart
+
+on:
+  push:
+    branches:
+      # - master
+      - feat/publish-charts
+
+jobs:
+  release:
+    name: Release Chart
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    # container:
+    #   image: agrrh/github-runner
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Publish Helm charts
+        uses: stefanprodan/helm-gh-pages@v1.7.0
+        with:
+          token: ${{ secrets.CR_TOKEN }}
