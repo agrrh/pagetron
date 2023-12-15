@@ -28,9 +28,9 @@ jobs:
 
       - name: Configure Git
         run: |
-          sleep 3600
-          git config --local user.name "$GITHUB_ACTOR"
-          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          echo "[user]" >> .git/config
+          echo "  name = \"$GITHUB_ACTOR\"" >> .git/config
+          echo "  email = kovalev.kirill.a@gmail.com" >> .git/config
 
       - name: Install Helm
         uses: azure/setup-helm@v3
