@@ -18,7 +18,7 @@ jobs:
       contents: write
 
     container:
-      image: local/github-runner
+      image: agrrh/github-runner
 
     steps:
       - name: Checkout
