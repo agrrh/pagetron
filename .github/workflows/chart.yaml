@@ -40,6 +40,8 @@ jobs:
       # https://github.com/marketplace/actions/helm-chart-releaser
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
+        env:
+          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
         with:
           install_dir: /usr/local/bin
 
