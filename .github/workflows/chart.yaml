@@ -18,7 +18,7 @@ jobs:
       contents: write
 
     container:
-      image: ubuntu:jammy
+      image: local/github-runner
 
     steps:
       - name: Checkout
