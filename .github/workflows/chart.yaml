@@ -31,8 +31,10 @@ jobs:
           git config --global --add safe.directory "$(pwd)"
           git config user.name
           git config user.email
-          git config --local user.name "\"$GITHUB_ACTOR\""
-          git config --local user.email "\"$GITHUB_ACTOR@users.noreply.github.com\""
+          echo git config --local user.name "$GITHUB_ACTOR"
+          echo git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Helm
         uses: azure/setup-helm@v3
