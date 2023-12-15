@@ -35,10 +35,9 @@ You must have Kubernetes cluster to be up and running to deploy this application
 At the moment, installation is as simple as:
 
 ```
-git clone https://github.com/agrrh/pagetron.git
+helm repo add pagetron https://agrrh.github.io/pagetron/
 
-helm install pagetron \
-  pagetron/deploy/helm/pagetron \
+helm install my-status-page pagetron/pagetron \
   --upgrade \
   --namespace pagetron \
   --values values.yaml
