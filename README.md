@@ -56,7 +56,7 @@ This will create some resources in your cluster:
 
 ## Usage
 
-Refer to wiki for [Quickstart](/wiki#quickstart).
+Refer to wiki for [Quickstart](https://gituhub.com/agrrh/pagetron/wiki#quickstart).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
