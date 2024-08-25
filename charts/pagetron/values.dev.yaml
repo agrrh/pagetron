@@ -7,8 +7,11 @@ targets:
   - https://fastapi.tiangolo.com
   - https://prometheus.io
 
-publicUrl: "https://pagetron-dev.agrrh.com"
-
+# May be a good idea to use nip.io and minikube, e.g.:
+#   publicUrl: http://pagetron.192-168-42-1.nip.io
+# (know your minikube address with `minikube ip` command)
+#   ingressClass: nginx
+publicUrl: https://pagetron-dev.agrrh.com
 ingressClass: traefik
 
 timezone: Europe/Moscow
