@@ -12,6 +12,11 @@ targets:
 
 publicUrl: "https://pagetron.example.org"
 
+# Supported classes:
+#   - nginx
+#   - traefik
+ingressClass: nginx
+
 # May be changed to use external Prometheus
 prometheusUrl: "http://prometheus:9090/"
 

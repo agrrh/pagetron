@@ -1,0 +1,20 @@
+---
+
+targets:
+  - https://www.docker.com
+  - https://kubernetes.io
+  - https://svelte.dev
+  - https://fastapi.tiangolo.com
+  - https://prometheus.io
+
+publicUrl: "https://pagetron-dev.agrrh.com"
+
+ingressClass: traefik
+
+timezone: Europe/Moscow
+
+backend:
+  replicas: 1
+
+frontend:
+  replicas: 1
