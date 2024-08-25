@@ -1,6 +1,4 @@
-# Pagetron
-
-![Icon](icon.svg)
+# ![Icon](icon.svg) Pagetron
 
 Status page generator, based on Prometheus, designed to be deployed to Kubernetes clusters.
 
