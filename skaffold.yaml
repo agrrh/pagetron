@@ -1,0 +1,32 @@
+---
+  
+apiVersion: skaffold/v4beta1
+kind: Config
+
+metadata:
+  name: pagetron
+
+build:
+  artifacts:
+  - image: agrrh/pagetron-backend
+    context: backend
+    docker:
+      dockerfile: Dockerfile
+  - image: agrrh/pagetron-frontend
+    context: frontend
+    docker:
+      dockerfile: Dockerfile
+
+deploy:
+  helm:
+    releases:
+    - name: pagetron
+      
+      namespace: pagetron-dev
+      createNamespace: true
+      
+      chartPath: charts/pagetron
+      version: 0.1.0
+      valuesFiles:
+        - charts/pagetron/values.yaml
+        - charts/pagetron/values.dev.yaml
