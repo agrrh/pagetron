@@ -12,20 +12,20 @@ metadata:
     app: pagetron
     component: common
   annotations:
-    {{- if eq $.Values.ingressClass "nginx" }}
+    {{- if eq $.Values.publicAccess.ingress.class "nginx" }}
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-    {{- else if eq $.Values.ingressClass "traefik" }}
+    {{- else if eq $.Values.publicAccess.ingress.class "traefik" }}
     traefik.ingress.kubernetes.io/router.middlewares: "{{ $.Release.Namespace }}-backend-strip-prefix@kubernetescrd"
     {{- end }}
 
 spec:
-  ingressClassName: {{ $.Values.ingressClass }}
+  ingressClassName: {{ $.Values.publicAccess.ingress.class }}
   rules:
     - host: {{ $.Values.publicUrl | trimPrefix "https://" | trimPrefix "http://" | quote }}
       http:
         paths:
-          {{- if eq $.Values.ingressClass "nginx" }}
+          {{- if eq $.Values.publicAccess.ingress.class "nginx" }}
           - path: /api/(.*)
             pathType: ImplementationSpecific
             backend:
@@ -40,7 +40,7 @@ spec:
                 name:  pagetron-frontend
                 port:
                   number: 80
-          {{- else if eq $.Values.ingressClass "traefik" }}
+          {{- else if eq $.Values.publicAccess.ingress.class "traefik" }}
           - path: /
             pathType: Prefix
             backend:
@@ -57,7 +57,7 @@ spec:
                   number: 80
           {{- end }}
 
-{{- if eq $.Values.ingressClass "traefik" }}
+{{- if eq $.Values.publicAccess.ingress.class "traefik" }}
 ---
 
 apiVersion: traefik.containo.us/v1alpha1
