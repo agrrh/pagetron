@@ -13,15 +13,31 @@ targets:
 publicAccess:
   ingress:
     enabled: true
+
+    class: nginx
+    # class: traefik
+
   s3:
-    enabled: true
+    enabled: false
+
+    secretName: s3-publish-credentials
+    bucketName: my-bucket
+
+    # Secret example for AWS
+    # data:
+    #   AWS_ACCESS_KEY_ID: ""
+    #   AWS_SECRET_ACCESS_KEY: ""
+    #   AWS_DEFAULT_REGION: ""
+    #   AWS_ENDPOINT_URL_S3: ""
+
+    # Secret example for Yandex Cloud
+    # data:
+    #   AWS_ACCESS_KEY_ID: ""
+    #   AWS_SECRET_ACCESS_KEY: ""
+    #   AWS_DEFAULT_REGION: "ru-central1"
+    #   AWS_ENDPOINT_URL_S3: "https://storage.yandexcloud.net/"
 
 publicUrl: "https://pagetron.example.org"
-
-# Supported classes:
-#   - nginx
-#   - traefik
-ingressClass: nginx
 
 # May be changed to use external Prometheus
 prometheusUrl: "http://prometheus:9090/"
@@ -119,25 +135,7 @@ backend:
   tolerations: []
 
 publisher:
-  schedule: "*/5 * * * *"
-
-  s3:
-    secretName: s3-publish-credentials
-    bucketName: pagetron-status-page
-
-    # Secret example for AWS
-    # data:
-    #   AWS_ACCESS_KEY_ID: ""
-    #   AWS_SECRET_ACCESS_KEY: ""
-    #   AWS_DEFAULT_REGION: ""
-    #   AWS_ENDPOINT_URL_S3: ""
-
-    # Secret example for Yandex Cloud
-    # data:
-    #   AWS_ACCESS_KEY_ID: ""
-    #   AWS_SECRET_ACCESS_KEY: ""
-    #   AWS_DEFAULT_REGION: "ru-central1"
-    #   AWS_ENDPOINT_URL_S3: "https://storage.yandexcloud.net/"
+  schedule: "*/15 * * * *"
 
   buildImage:
     repository: agrrh/pagetron-frontend-builder
