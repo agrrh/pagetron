@@ -16,6 +16,9 @@ publicAccess:
   s3:
     enabled: true
 
+    secretName: s3-publish-credentials
+    bucketName: pagetron-status-page
+
 # May be a good idea to use nip.io and minikube, e.g.:
 #   publicUrl: http://pagetron.192-168-42-1.nip.io
 # (know your minikube address with `minikube ip` command)
@@ -31,6 +34,3 @@ frontend:
 
 publisher:
   schedule: "*/1 * * * *"
-
-  buildImage:
-    tag: 0.2.0-dev-1726335786
