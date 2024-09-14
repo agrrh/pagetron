@@ -68,7 +68,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
-          target: build
+          target: builder
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta_builder.outputs.tags }}
 

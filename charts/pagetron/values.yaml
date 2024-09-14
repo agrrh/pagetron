@@ -121,6 +121,11 @@ backend:
 publisher:
   schedule: "*/5 * * * *"
 
+  buildImage:
+    repository: agrrh/pagetron-frontend-builder
+    pullPolicy: IfNotPresent
+    tag: ""
+
   image:
     repository: agrrh/cider
     pullPolicy: IfNotPresent

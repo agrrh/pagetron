@@ -28,5 +28,8 @@ backend:
 frontend:
   replicas: 1
 
-# publisher:
-#   schedule: "*/1 * * * *"
+publisher:
+  schedule: "*/1 * * * *"
+
+  buildImage:
+    tag: 0.2.0-dev-1726335786
