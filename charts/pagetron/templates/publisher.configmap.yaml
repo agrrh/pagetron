@@ -19,7 +19,7 @@ data:
     # Build website with following options
 
     # ENV VITE_API_URL="PAGETRON_API_ADDR/api"
-    # ENV VITE_IMPORT_DATA=1
+    # ENV VITE_BUILD_SNAPSHOT=1
 
     # Upload to S3
 

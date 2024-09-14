@@ -1,3 +1,3 @@
-export let toImportData = false;
+export let isBuildingSnapshot = false;
 
-toImportData = import.meta.env.VITE_IMPORT_DATA == true;
+isBuildingSnapshot = import.meta.env.VITE_BUILD_SNAPSHOT == true;

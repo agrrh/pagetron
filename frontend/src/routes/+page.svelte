@@ -1,6 +1,6 @@
 <script>
 	import { apiUrl, getAllData } from '$lib/api.js';
-	import { toImportData } from '$lib/utils.js';
+	import { isBuildingSnapshot } from '$lib/utils.js';
 
 	import { viewStore } from '$lib/stores.js';
 
@@ -13,7 +13,7 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	if (!toImportData) {
+	if (!isBuildingSnapshot) {
 		data = getAllData();
 	}
 
