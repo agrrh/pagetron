@@ -1,0 +1,100 @@
+{{- if $.Values.publicAccess.s3.enabled }}
+{{- with $.Values.publisher }}
+
+---
+
+apiVersion: batch/v1
+kind: CronJob
+
+metadata:
+  name: pagetron-publisher
+  labels:
+    app: pagetron
+    component: publisher
+
+spec:
+  schedule: {{ .schedule | quote }}
+  concurrencyPolicy: Replace
+
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          restartPolicy: OnFailure
+          initContainers:
+            - name: builder
+              image: "{{ .buildImage.repository }}:{{ .buildImage.tag | default $.Chart.AppVersion }}"
+              imagePullPolicy: IfNotPresent
+
+              env:
+                - name: TZ
+                  value: {{ $.Values.timezone | quote }}
+
+                - name: VITE_API_URL
+                  value: http://pagetron-backend:80
+                - name: VITE_BUILD_SNAPSHOT
+                  value: "1"
+
+              command: ["/bin/bash"]
+              args:
+                - /job/build.sh
+
+              volumeMounts:
+                - name: job
+                  mountPath: /job
+                - name: data
+                  mountPath: /data
+
+          containers:
+            - name: publisher
+              image: "{{ .image.repository }}:{{ .image.tag }}"
+              imagePullPolicy: IfNotPresent
+
+              env:
+                - name: TZ
+                  value: {{ $.Values.timezone | quote }}
+
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .s3.secretName | quote }}
+                      key: AWS_ACCESS_KEY_ID
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .s3.secretName | quote }}
+                      key: AWS_SECRET_ACCESS_KEY
+                - name: AWS_DEFAULT_REGION
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .s3.secretName | quote }}
+                      key: AWS_DEFAULT_REGION
+                - name: AWS_ENDPOINT_URL_S3
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .s3.secretName | quote }}
+                      key: AWS_ENDPOINT_URL_S3
+
+                - name: S3_BUCKET_NAME
+                  value: {{ .s3.bucketName | quote }}
+
+              command: ["/bin/ash"]
+              args:
+                - /job/publish.sh
+
+              volumeMounts:
+                - name: job
+                  mountPath: /job
+                - name: data
+                  mountPath: /data
+
+          volumes:
+            - name: job
+              configMap:
+                name: pagetron-publisher-job
+            - name: data
+              emptyDir: {}
+
+{{- end }}
+{{- end }}

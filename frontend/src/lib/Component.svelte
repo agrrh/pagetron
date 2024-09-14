@@ -35,10 +35,13 @@
 		return [proto, hostAndPath];
 	}
 
+	function addProto(url) {
+		return url.startsWith('http') ? url : 'http://' + url;
+	}
+
 	if (dummy) {
 		uptimeStateClasses = 'has-text-grey';
-	}
-	else if (uptime > thresholds[0]) {
+	} else if (uptime > thresholds[0]) {
 		uptimeStateClasses = 'has-text-success';
 	} else if (uptime > thresholds[1]) {
 		uptimeStateClasses = 'has-text-warning-dark';
@@ -74,7 +77,7 @@
 	<div class="header columns is-mobile">
 		<div class="column is-3">
 			<p class="is-size-5 has-text-weight-bold">
-				<a class="has-text-link-dark" href={name} target="_blank">{name}</a>
+				<a class="has-text-link-dark" href={addProto(name)} target="_blank">{name}</a>
 			</p>
 		</div>
 		<div class="column has-text-right">

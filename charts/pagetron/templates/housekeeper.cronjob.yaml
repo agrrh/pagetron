@@ -13,8 +13,11 @@ metadata:
 
 spec:
   schedule: {{ .schedule | quote }}
+  concurrencyPolicy: Forbid
+
   jobTemplate:
     spec:
+      ttlSecondsAfterFinished: 3600
       template:
         spec:
           restartPolicy: OnFailure

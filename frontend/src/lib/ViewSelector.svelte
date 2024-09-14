@@ -5,7 +5,7 @@
 	let views = [
 		{ name: 'year', icon: 'fa fa-earth-asia' },
 		{ name: 'quarter', icon: 'fa fa-calendar-days' },
-		{ name: 'hours', icon: 'fa fa-clock' },
+		{ name: 'hours', icon: 'fa fa-clock' }
 	];
 
 	function cycleViews(e) {
@@ -13,11 +13,7 @@
 			viewStore.set(views[2]['name']);
 		}
 
-		views = [
-			views[1],
-			views[2],
-			views[0],
-		]
+		views = [views[1], views[2], views[0]];
 	}
 
 	viewStore.subscribe((value) => (view = value));

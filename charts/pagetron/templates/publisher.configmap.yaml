@@ -1,0 +1,49 @@
+{{- with $.Values.publisher }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: pagetron-publisher-job
+
+data:
+  build.sh: |
+    #!/bin/bash
+
+    set -e
+    set -x
+
+    echo "# Starting"
+
+    echo "# Building website"
+
+    export PATH="/app/node_modules/.bin:${PATH}"
+    npm run build
+
+    mv build /data/build
+
+    echo "# Done"
+
+  publish.sh: |
+    #!/bin/ash
+
+    set -e
+    set -x
+
+    echo "# Starting"
+
+    echo "# Publishing website"
+
+    cd /data/build
+
+    aws s3 \
+      --endpoint-url=${AWS_ENDPOINT_URL_S3} \
+      sync \
+        ./ \
+        s3://${S3_BUCKET_NAME}/
+
+    echo "# Done"
+
+{{- end }}

@@ -1,12 +1,20 @@
-FROM node:21 AS build
+FROM node:21 AS builder
 
 WORKDIR /app
 
 COPY ./package.json ./
 COPY ./package-lock.json ./
-RUN npm i
+
+RUN npm install --include=dev
 
 COPY ./ ./
+
+FROM node:21 AS build
+
+WORKDIR /app
+
+COPY --from=builder /app/ ./
+
 RUN npm run build
 
 # ---

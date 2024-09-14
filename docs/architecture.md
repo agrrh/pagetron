@@ -3,43 +3,44 @@
 ```mermaid
 graph LR
 
-visitor
+visitor(("👨👩 Visitors"))
+domain["status.example.org"]
 
 subgraph resources
   external-website[website]
   external-api[API]
 end
 
-subgraph s3
-  front-static
+subgraph s3[S3]
+  frontend-static
 end
 
-subgraph kubernetes
-  ingress
+subgraph kubernetes["Kubernetes Cluster"]
+  subgraph pagetron["Namespace: pagetron"]
+    ingress
 
-  subgraph pagetron
-    front
-    back
+    frontend
+    backend
 
     prometheus[(prometheus)]
     blackbox[blackbox-exporter]
 
-    housekeeper
-    publisher
+    housekeeper["🕐 housekeeper"]
+    publisher["🕐 publisher"]
   end
 end
 
 prometheus -.- blackbox
 blackbox -.->  |probe| external-website & external-api
 
+backend -.-> |get data| prometheus
+
 housekeeper -.->|cleanup| prometheus
 
-front -.-> back
-back -.-> |get data| prometheus
+visitor --> domain
+domain -->|Option A: live data| ingress --> frontend & backend
+domain -->|Option B: fault-tolerant static page| frontend-static
 
-publisher -.->|get actual data| back
-publisher -.->|deploy| front-static
-
-visitor -->|A: access live data| ingress -.-> front
-visitor -->|B: access fault-tolerant static page| front-static
+publisher -.->|get actual data| backend
+publisher -.->|deploy| frontend-static
 ```

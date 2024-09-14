@@ -1,5 +1,6 @@
 <script>
-	import { apiUrl } from '$lib/api.js'
+	import { apiUrl, getAllData } from '$lib/api.js';
+	import { isBuildingSnapshot } from '$lib/utils.js';
 
 	import { viewStore } from '$lib/stores.js';
 
@@ -9,16 +10,11 @@
 	import Footer from '$lib/Footer.svelte';
 	import Dummy from '$lib/Dummy.svelte';
 
-	async function fetchData() {
-		let response;
+	/** @type {import('./$types').PageData} */
+	export let data;
 
-		response = await fetch(apiUrl + `/overview/`);
-		const overview = await response.json();
-
-		response = await fetch(apiUrl + `/components/`);
-		const components = await response.json();
-
-		return { overview, components };
+	if (!isBuildingSnapshot) {
+		data = getAllData();
 	}
 
 	let view = '';
@@ -30,7 +26,7 @@
 
 <Header />
 
-{#await fetchData()}
+{#await data}
 	<Dummy />
 {:then data}
 	<Overview
@@ -40,7 +36,7 @@
 		componentsIssues={data.overview.components_issues}
 		datetimeHuman={data.overview.datetime_human}
 	/>
-	<ComponentsList components={data.components} {view} />
+	<ComponentsList components={data.components} componentsData={data.componentsData} {view} />
 {:catch error}
 	<Dummy error={error.message} />
 {/await}

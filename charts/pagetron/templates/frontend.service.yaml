@@ -1,3 +1,4 @@
+{{- if $.Values.publicAccess.ingress.enabled }}
 {{- with $.Values.frontend }}
 
 ---
@@ -23,4 +24,5 @@ spec:
     app: pagetron
     component: frontend
 
+{{- end }}
 {{- end }}

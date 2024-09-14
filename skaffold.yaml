@@ -1,5 +1,5 @@
 ---
-  
+
 apiVersion: skaffold/v4beta1
 kind: Config
 
@@ -19,12 +19,18 @@ build:
 
 deploy:
   helm:
+    hooks:
+      before:
+        - host:
+            command: ["kubectl", "apply", "-n", "pagetron-dev", "-f", ".dev/dev.secret.yaml"]
+            os: [darwin, linux]
+
     releases:
     - name: pagetron
-      
+
       namespace: pagetron-dev
       createNamespace: true
-      
+
       chartPath: charts/pagetron
       version: 0.1.0
       valuesFiles:
