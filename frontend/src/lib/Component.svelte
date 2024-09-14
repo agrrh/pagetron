@@ -37,8 +37,7 @@
 
 	if (dummy) {
 		uptimeStateClasses = 'has-text-grey';
-	}
-	else if (uptime > thresholds[0]) {
+	} else if (uptime > thresholds[0]) {
 		uptimeStateClasses = 'has-text-success';
 	} else if (uptime > thresholds[1]) {
 		uptimeStateClasses = 'has-text-warning-dark';
