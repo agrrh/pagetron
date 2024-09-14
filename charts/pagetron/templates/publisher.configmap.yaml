@@ -1,0 +1,26 @@
+{{- with $.Values.publisher }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: pagetron-publisher-job
+
+data:
+  job.sh: |
+    #/bin/ash
+
+    echo "hello"
+
+    # Get builder image
+
+    # Build website with following options
+
+    # ENV VITE_API_URL="PAGETRON_API_ADDR/api"
+    # ENV VITE_IMPORT_DATA=1
+
+    # Upload to S3
+
+{{- end }}

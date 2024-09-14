@@ -1,0 +1,46 @@
+{{- if $.Values.publicAccess.s3.enabled }}
+{{- with $.Values.publisher }}
+
+---
+
+apiVersion: batch/v1
+kind: CronJob
+
+metadata:
+  name: pagetron-publisher
+  labels:
+    app: pagetron
+    component: publisher
+
+spec:
+  schedule: {{ .schedule | quote }}
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: publisher
+              image: "{{ .image.repository }}:{{ default .image.tag }}"
+              imagePullPolicy: IfNotPresent
+
+              env:
+                - name: TZ
+                  value: {{ $.Values.timezone | quote }}
+
+              command: ["/bin/ash"]
+              args:
+                - /job/job.sh
+
+              volumeMounts:
+                - name: job
+                  mountPath: /job
+
+          volumes:
+            - name: job
+              configMap:
+                name: pagetron-publisher-job
+
+{{- end }}
+{{- end }}

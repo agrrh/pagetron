@@ -10,6 +10,12 @@ targets:
   - https://fastapi.tiangolo.com
   - https://prometheus.io
 
+publicAccess:
+  ingress:
+    enabled: true
+  s3:
+    enabled: true
+
 publicUrl: "https://pagetron.example.org"
 
 # Supported classes:
@@ -112,6 +118,25 @@ backend:
   nodeSelector: {}
   tolerations: []
 
+publisher:
+  schedule: "*/5 * * * *"
+
+  image:
+    repository: agrrh/cider
+    pullPolicy: IfNotPresent
+    tag: 0.6.0
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  nodeSelector: {}
+  tolerations: []
+
 frontend:
   replicas: 2
   image:
@@ -178,7 +203,7 @@ housekeeper:
   image:
     repository: agrrh/cider
     pullPolicy: IfNotPresent
-    tag: 0.5.0
+    tag: 0.6.0
 
   resources:
     limits:
