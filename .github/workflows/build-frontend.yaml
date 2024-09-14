@@ -22,8 +22,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Docker meta
-        id: meta
+      - name: Docker meta (builder)
+        id: meta_builder
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            agrrh/pagetron-frontend-builder
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      - name: Docker meta (static)
+        id: meta_static
         uses: docker/metadata-action@v5
         with:
           images: |
@@ -49,9 +64,17 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push (builder)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          target: build
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta_builder.outputs.tags }}
+
+      - name: Build and push (static)
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta_static.outputs.tags }}
