@@ -18,7 +18,7 @@ publicAccess:
     # class: traefik
 
   s3:
-    enabled: true
+    enabled: false
 
 publicUrl: "https://pagetron.example.org"
 
