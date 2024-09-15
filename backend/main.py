@@ -58,3 +58,25 @@ def get_components_or_details(name: str | None = None, view: str = "quarter"):
 
     component = db.get_component(name=name, view=view)
     return component
+
+
+# @app.get("/full/")
+# @ttl_cache(CACHE_TTL_DEFAULT)
+# def get_full():
+#     views = ("quarter", "hours", "year")
+#
+#     data = {}
+#
+#     data["overview"] = db.get_overview()
+#     data["components"] = db.list_components()
+#
+#     data["data"] = {}
+#
+#     for component in data["components"]:
+#         data["data"][component] = {}
+#
+#     for component in data["components"]:
+#         for view in views:
+#             data["data"][component][view] = db.get_component(name=component, view=view)
+#
+#     return data
