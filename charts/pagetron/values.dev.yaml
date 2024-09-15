@@ -14,7 +14,7 @@ publicAccess:
     class: traefik
 
   s3:
-    enabled: true
+    enabled: false
 
     secretName: s3-publish-credentials
     bucketName: pagetron-status-page

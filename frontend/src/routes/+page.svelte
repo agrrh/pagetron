@@ -1,7 +1,8 @@
 <script>
-	import { apiUrl, getAllData } from '$lib/api.js';
+	import { getAllData } from '$lib/api.js';
 	import { isBuildingSnapshot } from '$lib/utils.js';
 
+	import { get } from 'svelte/store';
 	import { viewStore } from '$lib/stores.js';
 
 	import Header from '$lib/Header.svelte';
@@ -21,7 +22,7 @@
 
 	viewStore.subscribe((value) => (view = value));
 
-	$: view;
+	$: view = get(viewStore);
 </script>
 
 <Header />
@@ -29,13 +30,7 @@
 {#await data}
 	<Dummy />
 {:then data}
-	<Overview
-		status={data.overview.status}
-		componentsCount={data.overview.components_count}
-		issuesCount={data.overview.issues_count}
-		componentsIssues={data.overview.components_issues}
-		datetimeHuman={data.overview.datetime_human}
-	/>
+	<Overview {...data.overview} />
 	<ComponentsList components={data.components} componentsData={data.componentsData} {view} />
 {:catch error}
 	<Dummy error={error.message} />
