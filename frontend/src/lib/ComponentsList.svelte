@@ -1,29 +1,26 @@
 <script>
 	import Component from '$lib/Component.svelte';
 
-	/** @type {import('./$types').PageData} */
+	import { get } from 'svelte/store';
+	import { viewStore } from '$lib/stores.js';
+
 	export let components = [];
 	export let componentsData = {};
 	export let view = 'day';
 
-	$: components;
+	function getDataForView(c, v) {
+		return componentsData[c][v];
+	}
+
+	viewStore.subscribe((value) => (view = value));
+
+	$: view = get(viewStore);
 </script>
 
 <section>
 	<div class="container">
 		{#each components as c}
-			{#await c}
-				<Component name={c} dummy="true" />
-			{:then c}
-				<Component
-					name={componentsData[c][view].name}
-					observations={componentsData[c][view].observations}
-					uptime={componentsData[c][view].uptime}
-					{view}
-				/>
-			{:catch error}
-				<Component name="..." dummy="true" />
-			{/await}
+			<Component {view} {...getDataForView(c, view)} />
 		{/each}
 	</div>
 </section>

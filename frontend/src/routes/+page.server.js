@@ -9,8 +9,8 @@ export async function load({ fetch, params }) {
 	let componentsData = {};
 
 	if (isBuildingSnapshot) {
-    return getAllData();
+		return getAllData();
 	}
 
-  return { overview, components, componentsData };
+	return { overview, components, componentsData };
 }

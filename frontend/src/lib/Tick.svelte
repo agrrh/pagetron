@@ -8,14 +8,20 @@
 
 	let units = [];
 
-	if (capacity <= 60 * 5) {
-		units = ['m', 's'];
-	} else if (capacity <= 60 * 60 * 24) {
-		units = ['d', 'h', 'm'];
-	} else if (capacity <= 60 * 60 * 24 * 7) {
-		units = ['w', 'd', 'h'];
-	} else {
-		units = ['w', 'd'];
+	function getUnits(capacity) {
+		let units = [];
+
+		if (capacity <= 60 * 5) {
+			units = ['m', 's'];
+		} else if (capacity <= 60 * 60 * 24) {
+			units = ['d', 'h', 'm'];
+		} else if (capacity <= 60 * 60 * 24 * 7) {
+			units = ['w', 'd', 'h'];
+		} else {
+			units = ['w', 'd'];
+		}
+
+		return units;
 	}
 
 	let tickStateClasses = '';
@@ -23,31 +29,54 @@
 	let downtime = 0.0;
 	let downtimeHumanText = '';
 
-	if (uptime == -1.0) {
-		downtime = 1.0 * capacity * 1000; // no data
-	} else {
-		downtime = Math.round((1.0 - uptime) * capacity) * 1000;
-	}
-
-	if (uptime == -1.0) {
-		tickStateClasses = 'has-background-grey';
-	} else if (uptime > thresholds[0]) {
-		tickStateClasses = 'has-background-success';
-		if (downtime > 0) {
-			tickStateClasses += ' ' + 'has-minor-issue';
+	function getDowntime(uptime) {
+		if (uptime == -1.0) {
+			downtime = 1.0 * capacity * 1000; // no data
+		} else {
+			downtime = Math.round((1.0 - uptime) * capacity) * 1000;
 		}
-	} else if (uptime > thresholds[1]) {
-		tickStateClasses = 'has-background-warning';
-	} else {
-		tickStateClasses = 'has-background-danger';
+
+		return downtime;
 	}
 
-	if (uptime == -1.0) {
-		downtimeHumanText = '\n' + 'no data';
-	} else if (downtime > 0) {
-		let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 0, units: units });
-		downtimeHumanText = '\n' + 'down for ' + downtimeHuman;
+	function getTickStateClass(uptime) {
+		let tickStateClasses;
+
+		if (uptime == -1.0) {
+			tickStateClasses = 'has-background-grey';
+		} else if (uptime > thresholds[0]) {
+			tickStateClasses = 'has-background-success';
+			if (downtime > 0) {
+				tickStateClasses += ' ' + 'has-minor-issue';
+			}
+		} else if (uptime > thresholds[1]) {
+			tickStateClasses = 'has-background-warning';
+		} else {
+			tickStateClasses = 'has-background-danger';
+		}
+
+		return tickStateClasses;
 	}
+
+	function getDowntimeText(uptime) {
+		let getDowntimeText;
+
+		if (uptime == 1) {
+			downtimeHumanText = '';
+		} else if (uptime == -1.0) {
+			downtimeHumanText = '\n' + 'no data';
+		} else if (downtime > 0) {
+			let downtimeHuman = humanizeDuration(downtime, { maxDecimalPoints: 0, units: units });
+			downtimeHumanText = '\n' + 'down for ' + downtimeHuman;
+		}
+
+		return downtimeHumanText;
+	}
+
+	$: downtime = getDowntime(uptime);
+	$: units = getUnits(capacity);
+	$: downtimeHumanText = getDowntimeText(uptime);
+	$: tickStateClasses = getTickStateClass(uptime);
 </script>
 
 <div

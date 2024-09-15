@@ -1,6 +1,9 @@
 <script>
 	import humanizeDuration from 'humanize-duration';
 
+	import { get } from 'svelte/store';
+	import { viewStore } from '$lib/stores.js';
+
 	import Tick from '$lib/Tick.svelte';
 
 	export let dummy = false;
@@ -11,7 +14,6 @@
 	export let observations = [];
 	export let tickCapacitySeconds = 60;
 
-	let thresholds = [0.99, 0.95];
 	let uptimeStateClasses = '';
 
 	if (dummy) {
@@ -39,38 +41,69 @@
 		return url.startsWith('http') ? url : 'http://' + url;
 	}
 
-	if (dummy) {
-		uptimeStateClasses = 'has-text-grey';
-	} else if (uptime > thresholds[0]) {
-		uptimeStateClasses = 'has-text-success';
-	} else if (uptime > thresholds[1]) {
-		uptimeStateClasses = 'has-text-warning-dark';
-	} else {
-		uptimeStateClasses = 'has-text-danger-dark';
+	function getUptimeStateClasses(uptime) {
+		let thresholds = [0.99, 0.95];
+
+		if (dummy) {
+			uptimeStateClasses = 'has-text-grey';
+		} else if (uptime > thresholds[0]) {
+			uptimeStateClasses = 'has-text-success';
+		} else if (uptime > thresholds[1]) {
+			uptimeStateClasses = 'has-text-warning-dark';
+		} else {
+			uptimeStateClasses = 'has-text-danger-dark';
+		}
+
+		return uptimeStateClasses;
 	}
 
-	let timelineStart = '';
-	switch (view) {
-		case 'hours':
-			timelineStart = '6 hours';
-			tickCapacitySeconds = 60 * 5;
-			break;
-		case 'quarter':
-			timelineStart = '90 days';
-			tickCapacitySeconds = 60 * 60 * 24;
-			break;
-		case 'year':
-			timelineStart = 'year';
-			tickCapacitySeconds = 60 * 60 * 24 * 7;
-			break;
+	function getTimelineStart(view) {
+		let timelineStart = '';
+
+		switch (view) {
+			case 'hours':
+				timelineStart = '6 hours';
+				break;
+			case 'quarter':
+				timelineStart = '90 days';
+				break;
+			case 'year':
+				timelineStart = 'year';
+				break;
+		}
+
+		return timelineStart;
 	}
 
-	let tickCapacityHuman = humanizeDuration(tickCapacitySeconds * 1000, {
+	function getTickCapacitySeconds(view) {
+		let tickCapacitySeconds = 60;
+
+		switch (view) {
+			case 'hours':
+				tickCapacitySeconds = 60 * 5;
+				break;
+			case 'quarter':
+				tickCapacitySeconds = 60 * 60 * 24;
+				break;
+			case 'year':
+				tickCapacitySeconds = 60 * 60 * 24 * 7;
+				break;
+		}
+
+		return tickCapacitySeconds;
+	}
+
+	viewStore.subscribe((value) => (view = value));
+
+	$: view = get(viewStore);
+	$: uptimeStateClasses = getUptimeStateClasses(uptime);
+	$: timelineStart = getTimelineStart(view);
+	$: tickCapacitySeconds = getTickCapacitySeconds(view);
+	$: tickCapacityHuman = humanizeDuration(tickCapacitySeconds * 1000, {
 		maxDecimalPoints: 1,
 		units: ['w', 'd', 'h', 'm', 's']
 	});
-
-	let uptimeHuman = (uptime * 100.0).toFixed(2);
+	$: uptimeHuman = (uptime * 100.0).toFixed(2);
 </script>
 
 <div class="box">
