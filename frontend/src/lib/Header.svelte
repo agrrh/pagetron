@@ -1,5 +1,5 @@
 <script>
-	import ViewSelector from '$lib/ViewSelector.svelte';
+	import ButtonGitHub from '$lib/header/ButtonGitHub.svelte';
 
 	function toggleMenu() {
 		var burger = document.querySelector('.navbar-burger');
@@ -35,20 +35,11 @@
 
 		<div id="navMenu" class="navbar-menu has-background-black">
 			<div class="navbar-start">
-				<ViewSelector />
+				<!-- <ButtonGitHub /> -->
 			</div>
 
 			<div class="navbar-end">
-				<div class="navbar-item">
-					<a
-						class="button is-white is-outlined"
-						href="https://github.com/agrrh/pagetron"
-						target="_blank"
-					>
-						<span class="fab fa-github"></span>
-						<span class=""> &nbsp; GitHub </span>
-					</a>
-				</div>
+				<ButtonGitHub />
 			</div>
 		</div>
 	</div>
