@@ -3,12 +3,12 @@ entries:
   pagetron:
   - apiVersion: v2
     appVersion: 0.2.2
-    created: "2024-09-15T08:03:34.284743785Z"
+    created: "2025-11-26T11:21:06.711829076Z"
     description: A Helm chart for Kubernetes
-    digest: da8203bf211a88b8dbc1fbe4d15269015472f73d5e8635df99153261ace2680b
+    digest: 89a7db28c7bb0abe120472c2a7c77aa34eb2e9be9518626bc17c2cd5ce86eca4
     name: pagetron
     type: application
     urls:
     - https://agrrh.github.io/pagetron/pagetron-0.1.0.tgz
     version: 0.1.0
-generated: "2024-09-15T08:03:34.283050879Z"
+generated: "2025-11-26T11:21:06.710985926Z"
