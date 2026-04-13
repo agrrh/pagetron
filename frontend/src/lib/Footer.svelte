@@ -1,5 +1,5 @@
 <script>
-	let version = 'dev-demo';
+	let version = 'demo';
 </script>
 
 <section>
